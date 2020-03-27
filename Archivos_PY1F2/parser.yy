@@ -77,6 +77,14 @@ class analizer_driver;
 %token <string> mv
 %token <string> dest
 %token <string> recovery
+%token <string> edit
+%token <string> ren
+%token <string> cp
+%token <string> find
+%token <string> chown
+%token <string> chgrp
+%token <string> ruta
+
 
 //%token <float> numero
 %token FIN 0 "eof"
@@ -96,6 +104,12 @@ class analizer_driver;
 %type <string> CHMOD
 %type <string> MKDIR
 %type <string> MV
+%type <string> EDIT
+%type <string> REN
+%type <string> CHOWN
+%type <string> CHGRP
+
+
 
 %printer { yyoutput << $$; } <*>;
 %%
@@ -108,7 +122,7 @@ ADMINIST :  mkdisk MKPARM MKPARM MKPARM MKPARM                          { mkdisk
             |fdisk FDISK FDISK FDISK FDISK FDISK FDISK FDISK            { fdisk();}
             |mount DMOUNT DMOUNT                                        { mount();}
             |unmount id assign idvda                                    { id = $4; unmount();}
-            |rep DREP DREP DREP                                         { rep();}
+            |rep DREP DREP DREP DREP                                    { rep();}
             |exec path assign pather                                    { path = $4; verificar_comillas(path); exec = true;}
             |mkfs MKFS MKFS MKFS                                        { mkfs();}
             |login LOGIN LOGIN LOGIN                                    { login();}
@@ -117,7 +131,6 @@ ADMINIST :  mkdisk MKPARM MKPARM MKPARM MKPARM                          { mkdisk
             |rmgrp name assign npart                                    { name = $4; verificar_comillas(name); rmgrp();}
             |mkusr MKUSR MKUSR MKUSR                                    { mkusr();}
             |rmusr usr assign npart                                     { usr = $4; verificar_comillas(usr); rmusr(); }
-            |chmod CHMOD CHMOD                                          { }
             |mkFile MKFILE MKFILE MKFILE MKFILE                         { mkfile();}
             |cat file assign pather                                     { file = $4; verificar_comillas(file); cat();}
             |mkdir MKDIR MKDIR MKDIR                                    { mkdir();}
@@ -125,7 +138,14 @@ ADMINIST :  mkdisk MKPARM MKPARM MKPARM MKPARM                          { mkdisk
             |pause                                                      { pause();}
             |rem path assign pather                                     { path = $4; verificar_comillas(path); remover();}
             |mv MV MV                                                   { mover();}
-            |recovery assign idvda                                      { id = $3;};
+            |recovery assign idvda                                      { id = $3;}
+            |ren REN REN                                                { ren(); }
+            |edit EDIT EDIT                                             { printf("\nNo hay metodo definido\n\n"); }
+            |cp MV MV                                                   { printf("\nNo hay metodo definido\n\n"); }
+            |find REN REN                                               { printf("\nNo hay metodo definido\n\n"); }
+            |chmod CHMOD CHMOD CHMOD                                    { printf("\nNo hay metodo definido\n\n"); }
+            |chown CHOWN CHOWN CHOWN                                    { printf("\nNo hay metodo definido\n\n"); }
+            |chgrp CHGRP CHGRP                                          { printf("\nNo hay metodo definido\n\n"); };
 
 MKPARM :    size assign npart                                           { size = verificate_string($3); /* size = $3; */ }
             |fit assign adj                                             { fit = $3;}
@@ -148,7 +168,9 @@ DMOUNT :    path assign pather                                          { path =
 
 DREP :      path assign pather                                          { path = $3; verificar_comillas(path);}
             |name assign npart                                          { name = $3; verificar_comillas(name);}
-            |id assign idvda                                            { id = $3;};
+            |id assign idvda                                            { id = $3;}
+            |ruta assign pather                                         { ruta = $3; verificar_comillas(ruta);}
+            |%empty                                                     { $$ = "empty";};
 
 MKFS :      id assign idvda                                             { id = $3;}
             |typer assign tpdelete                                      { tdelete = $3;}
@@ -164,7 +186,9 @@ MKUSR :     usr assign npart                                            { usr = 
             |grp assign npart                                           { grp = $3; verificar_comillas(grp);};
 
 CHMOD :     path assign pather                                          { path = $3; verificar_comillas(path);}
-            |ugo;
+            |ugo assign npart                                           { /*size = verificate_string($3); /* size = $3; */ }
+            |recursive
+            |%empty                                                     { $$ = "empty";};
 
 MKFILE :    size assign npart                                           { size = verificate_string($3); /* size = $3; */ }
             |path assign pather                                         { path = $3; verificar_comillas(path);}
@@ -179,6 +203,20 @@ MKDIR :     parametro                                                   { atribp
 
 MV :        path assign pather                                          { path = $3; verificar_comillas(path);}
             |dest assign pather                                         { dest = $3; verificar_comillas(dest);};
+
+
+EDIT :      path assign pather                                          { path = $3; verificar_comillas(path);}
+            |cont assign npart                                          { cont = $3; verificar_comillas(cont);};
+
+REN :       path assign pather                                          { path = $3; verificar_comillas(path);}
+            |name assign npart                                          { name = $3; verificar_comillas(name);};
+
+CHOWN :     path assign pather                                          { path = $3; verificar_comillas(path);}
+            |recursive
+            |usr assign npart                                           { usr = $3; verificar_comillas(usr);};
+
+CHGRP :     usr assign npart                                            { usr = $3; verificar_comillas(usr);}
+            |grp assign npart                                           { grp = $3; verificar_comillas(grp);};
 
 
 

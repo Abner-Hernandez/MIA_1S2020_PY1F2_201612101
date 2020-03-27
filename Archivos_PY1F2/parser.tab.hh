@@ -345,6 +345,13 @@ namespace yy {
       // mv
       // dest
       // recovery
+      // edit
+      // ren
+      // cp
+      // find
+      // chown
+      // chgrp
+      // ruta
       // INICIO
       // ADMINIST
       // MKPARM
@@ -359,6 +366,10 @@ namespace yy {
       // MKFILE
       // MKDIR
       // MV
+      // EDIT
+      // REN
+      // CHOWN
+      // CHGRP
       char dummy2[sizeof(string)];
 };
 
@@ -434,7 +445,14 @@ namespace yy {
         TOK_rem = 306,
         TOK_mv = 307,
         TOK_dest = 308,
-        TOK_recovery = 309
+        TOK_recovery = 309,
+        TOK_edit = 310,
+        TOK_ren = 311,
+        TOK_cp = 312,
+        TOK_find = 313,
+        TOK_chown = 314,
+        TOK_chgrp = 315,
+        TOK_ruta = 316
       };
     };
 
@@ -755,6 +773,34 @@ namespace yy {
     symbol_type
     make_recovery (const string& v, const location_type& l);
 
+    static inline
+    symbol_type
+    make_edit (const string& v, const location_type& l);
+
+    static inline
+    symbol_type
+    make_ren (const string& v, const location_type& l);
+
+    static inline
+    symbol_type
+    make_cp (const string& v, const location_type& l);
+
+    static inline
+    symbol_type
+    make_find (const string& v, const location_type& l);
+
+    static inline
+    symbol_type
+    make_chown (const string& v, const location_type& l);
+
+    static inline
+    symbol_type
+    make_chgrp (const string& v, const location_type& l);
+
+    static inline
+    symbol_type
+    make_ruta (const string& v, const location_type& l);
+
 
     /// Build a parser object.
     analizer_parser (analizer_driver& driver_yyarg);
@@ -960,12 +1006,12 @@ namespace yy {
     enum
     {
       yyeof_ = 0,
-      yylast_ = 178,     ///< Last index in yytable_.
-      yynnts_ = 15,  ///< Number of nonterminal symbols.
-      yyfinal_ = 81, ///< Termination state number.
+      yylast_ = 231,     ///< Last index in yytable_.
+      yynnts_ = 19,  ///< Number of nonterminal symbols.
+      yyfinal_ = 104, ///< Termination state number.
       yyterror_ = 1,
       yyerrcode_ = 256,
-      yyntokens_ = 55  ///< Number of tokens.
+      yyntokens_ = 62  ///< Number of tokens.
     };
 
 
@@ -1012,9 +1058,10 @@ namespace yy {
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45,    46,    47,    48,    49,    50,    51,    52,    53,    54
+      45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
+      55,    56,    57,    58,    59,    60,    61
     };
-    const unsigned int user_token_number_max_ = 309;
+    const unsigned int user_token_number_max_ = 316;
     const token_number_type undef_token_ = 2;
 
     if (static_cast<int>(t) <= yyeof_)
@@ -1102,20 +1149,31 @@ namespace yy {
       case 52: // mv
       case 53: // dest
       case 54: // recovery
-      case 56: // INICIO
-      case 57: // ADMINIST
-      case 58: // MKPARM
-      case 59: // FDISK
-      case 60: // SIMBOL
-      case 61: // DMOUNT
-      case 62: // DREP
-      case 63: // MKFS
-      case 64: // LOGIN
-      case 65: // MKUSR
-      case 66: // CHMOD
-      case 67: // MKFILE
-      case 68: // MKDIR
-      case 69: // MV
+      case 55: // edit
+      case 56: // ren
+      case 57: // cp
+      case 58: // find
+      case 59: // chown
+      case 60: // chgrp
+      case 61: // ruta
+      case 63: // INICIO
+      case 64: // ADMINIST
+      case 65: // MKPARM
+      case 66: // FDISK
+      case 67: // SIMBOL
+      case 68: // DMOUNT
+      case 69: // DREP
+      case 70: // MKFS
+      case 71: // LOGIN
+      case 72: // MKUSR
+      case 73: // CHMOD
+      case 74: // MKFILE
+      case 75: // MKDIR
+      case 76: // MV
+      case 77: // EDIT
+      case 78: // REN
+      case 79: // CHOWN
+      case 80: // CHGRP
         value.copy< string > (other.value);
         break;
 
@@ -1191,20 +1249,31 @@ namespace yy {
       case 52: // mv
       case 53: // dest
       case 54: // recovery
-      case 56: // INICIO
-      case 57: // ADMINIST
-      case 58: // MKPARM
-      case 59: // FDISK
-      case 60: // SIMBOL
-      case 61: // DMOUNT
-      case 62: // DREP
-      case 63: // MKFS
-      case 64: // LOGIN
-      case 65: // MKUSR
-      case 66: // CHMOD
-      case 67: // MKFILE
-      case 68: // MKDIR
-      case 69: // MV
+      case 55: // edit
+      case 56: // ren
+      case 57: // cp
+      case 58: // find
+      case 59: // chown
+      case 60: // chgrp
+      case 61: // ruta
+      case 63: // INICIO
+      case 64: // ADMINIST
+      case 65: // MKPARM
+      case 66: // FDISK
+      case 67: // SIMBOL
+      case 68: // DMOUNT
+      case 69: // DREP
+      case 70: // MKFS
+      case 71: // LOGIN
+      case 72: // MKUSR
+      case 73: // CHMOD
+      case 74: // MKFILE
+      case 75: // MKDIR
+      case 76: // MV
+      case 77: // EDIT
+      case 78: // REN
+      case 79: // CHOWN
+      case 80: // CHGRP
         value.copy< string > (v);
         break;
 
@@ -1318,20 +1387,31 @@ namespace yy {
       case 52: // mv
       case 53: // dest
       case 54: // recovery
-      case 56: // INICIO
-      case 57: // ADMINIST
-      case 58: // MKPARM
-      case 59: // FDISK
-      case 60: // SIMBOL
-      case 61: // DMOUNT
-      case 62: // DREP
-      case 63: // MKFS
-      case 64: // LOGIN
-      case 65: // MKUSR
-      case 66: // CHMOD
-      case 67: // MKFILE
-      case 68: // MKDIR
-      case 69: // MV
+      case 55: // edit
+      case 56: // ren
+      case 57: // cp
+      case 58: // find
+      case 59: // chown
+      case 60: // chgrp
+      case 61: // ruta
+      case 63: // INICIO
+      case 64: // ADMINIST
+      case 65: // MKPARM
+      case 66: // FDISK
+      case 67: // SIMBOL
+      case 68: // DMOUNT
+      case 69: // DREP
+      case 70: // MKFS
+      case 71: // LOGIN
+      case 72: // MKUSR
+      case 73: // CHMOD
+      case 74: // MKFILE
+      case 75: // MKDIR
+      case 76: // MV
+      case 77: // EDIT
+      case 78: // REN
+      case 79: // CHOWN
+      case 80: // CHGRP
         value.template destroy< string > ();
         break;
 
@@ -1413,20 +1493,31 @@ namespace yy {
       case 52: // mv
       case 53: // dest
       case 54: // recovery
-      case 56: // INICIO
-      case 57: // ADMINIST
-      case 58: // MKPARM
-      case 59: // FDISK
-      case 60: // SIMBOL
-      case 61: // DMOUNT
-      case 62: // DREP
-      case 63: // MKFS
-      case 64: // LOGIN
-      case 65: // MKUSR
-      case 66: // CHMOD
-      case 67: // MKFILE
-      case 68: // MKDIR
-      case 69: // MV
+      case 55: // edit
+      case 56: // ren
+      case 57: // cp
+      case 58: // find
+      case 59: // chown
+      case 60: // chgrp
+      case 61: // ruta
+      case 63: // INICIO
+      case 64: // ADMINIST
+      case 65: // MKPARM
+      case 66: // FDISK
+      case 67: // SIMBOL
+      case 68: // DMOUNT
+      case 69: // DREP
+      case 70: // MKFS
+      case 71: // LOGIN
+      case 72: // MKUSR
+      case 73: // CHMOD
+      case 74: // MKFILE
+      case 75: // MKDIR
+      case 76: // MV
+      case 77: // EDIT
+      case 78: // REN
+      case 79: // CHOWN
+      case 80: // CHGRP
         value.move< string > (s.value);
         break;
 
@@ -1490,7 +1581,8 @@ namespace yy {
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
      295,   296,   297,   298,   299,   300,   301,   302,   303,   304,
-     305,   306,   307,   308,   309
+     305,   306,   307,   308,   309,   310,   311,   312,   313,   314,
+     315,   316
     };
     return static_cast<token_type> (yytoken_number_[type]);
   }
@@ -1813,10 +1905,52 @@ namespace yy {
     return symbol_type (token::TOK_recovery, v, l);
   }
 
+  analizer_parser::symbol_type
+  analizer_parser::make_edit (const string& v, const location_type& l)
+  {
+    return symbol_type (token::TOK_edit, v, l);
+  }
+
+  analizer_parser::symbol_type
+  analizer_parser::make_ren (const string& v, const location_type& l)
+  {
+    return symbol_type (token::TOK_ren, v, l);
+  }
+
+  analizer_parser::symbol_type
+  analizer_parser::make_cp (const string& v, const location_type& l)
+  {
+    return symbol_type (token::TOK_cp, v, l);
+  }
+
+  analizer_parser::symbol_type
+  analizer_parser::make_find (const string& v, const location_type& l)
+  {
+    return symbol_type (token::TOK_find, v, l);
+  }
+
+  analizer_parser::symbol_type
+  analizer_parser::make_chown (const string& v, const location_type& l)
+  {
+    return symbol_type (token::TOK_chown, v, l);
+  }
+
+  analizer_parser::symbol_type
+  analizer_parser::make_chgrp (const string& v, const location_type& l)
+  {
+    return symbol_type (token::TOK_chgrp, v, l);
+  }
+
+  analizer_parser::symbol_type
+  analizer_parser::make_ruta (const string& v, const location_type& l)
+  {
+    return symbol_type (token::TOK_ruta, v, l);
+  }
+
 
 #line 5 "parser.yy" // lalr1.cc:377
 } // yy
-#line 1820 "parser.tab.hh" // lalr1.cc:377
+#line 1954 "parser.tab.hh" // lalr1.cc:377
 
 
 

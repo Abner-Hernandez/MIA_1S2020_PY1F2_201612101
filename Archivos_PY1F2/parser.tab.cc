@@ -308,20 +308,31 @@ namespace yy {
       case 52: // mv
       case 53: // dest
       case 54: // recovery
-      case 56: // INICIO
-      case 57: // ADMINIST
-      case 58: // MKPARM
-      case 59: // FDISK
-      case 60: // SIMBOL
-      case 61: // DMOUNT
-      case 62: // DREP
-      case 63: // MKFS
-      case 64: // LOGIN
-      case 65: // MKUSR
-      case 66: // CHMOD
-      case 67: // MKFILE
-      case 68: // MKDIR
-      case 69: // MV
+      case 55: // edit
+      case 56: // ren
+      case 57: // cp
+      case 58: // find
+      case 59: // chown
+      case 60: // chgrp
+      case 61: // ruta
+      case 63: // INICIO
+      case 64: // ADMINIST
+      case 65: // MKPARM
+      case 66: // FDISK
+      case 67: // SIMBOL
+      case 68: // DMOUNT
+      case 69: // DREP
+      case 70: // MKFS
+      case 71: // LOGIN
+      case 72: // MKUSR
+      case 73: // CHMOD
+      case 74: // MKFILE
+      case 75: // MKDIR
+      case 76: // MV
+      case 77: // EDIT
+      case 78: // REN
+      case 79: // CHOWN
+      case 80: // CHGRP
         value.move< string > (that.value);
         break;
 
@@ -395,20 +406,31 @@ namespace yy {
       case 52: // mv
       case 53: // dest
       case 54: // recovery
-      case 56: // INICIO
-      case 57: // ADMINIST
-      case 58: // MKPARM
-      case 59: // FDISK
-      case 60: // SIMBOL
-      case 61: // DMOUNT
-      case 62: // DREP
-      case 63: // MKFS
-      case 64: // LOGIN
-      case 65: // MKUSR
-      case 66: // CHMOD
-      case 67: // MKFILE
-      case 68: // MKDIR
-      case 69: // MV
+      case 55: // edit
+      case 56: // ren
+      case 57: // cp
+      case 58: // find
+      case 59: // chown
+      case 60: // chgrp
+      case 61: // ruta
+      case 63: // INICIO
+      case 64: // ADMINIST
+      case 65: // MKPARM
+      case 66: // FDISK
+      case 67: // SIMBOL
+      case 68: // DMOUNT
+      case 69: // DREP
+      case 70: // MKFS
+      case 71: // LOGIN
+      case 72: // MKUSR
+      case 73: // CHMOD
+      case 74: // MKFILE
+      case 75: // MKDIR
+      case 76: // MV
+      case 77: // EDIT
+      case 78: // REN
+      case 79: // CHOWN
+      case 80: // CHGRP
         value.copy< string > (that.value);
         break;
 
@@ -450,464 +472,541 @@ namespace yy {
     {
             case 3: // size
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 456 "parser.tab.cc" // lalr1.cc:636
+#line 478 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 4: // fit
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 463 "parser.tab.cc" // lalr1.cc:636
+#line 485 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 5: // unit
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 470 "parser.tab.cc" // lalr1.cc:636
+#line 492 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 6: // path
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 477 "parser.tab.cc" // lalr1.cc:636
+#line 499 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 7: // mkdisk
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 484 "parser.tab.cc" // lalr1.cc:636
+#line 506 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 8: // rmdisk
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 491 "parser.tab.cc" // lalr1.cc:636
+#line 513 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 9: // mount
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 498 "parser.tab.cc" // lalr1.cc:636
+#line 520 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 10: // unmount
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 505 "parser.tab.cc" // lalr1.cc:636
+#line 527 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 11: // id
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 512 "parser.tab.cc" // lalr1.cc:636
+#line 534 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 12: // fdisk
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 519 "parser.tab.cc" // lalr1.cc:636
+#line 541 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 13: // deleter
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 526 "parser.tab.cc" // lalr1.cc:636
+#line 548 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 14: // add
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 533 "parser.tab.cc" // lalr1.cc:636
+#line 555 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 15: // rep
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 540 "parser.tab.cc" // lalr1.cc:636
+#line 562 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 16: // name
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 547 "parser.tab.cc" // lalr1.cc:636
+#line 569 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 17: // exec
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 554 "parser.tab.cc" // lalr1.cc:636
+#line 576 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 18: // typer
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 561 "parser.tab.cc" // lalr1.cc:636
+#line 583 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 19: // pather
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 568 "parser.tab.cc" // lalr1.cc:636
+#line 590 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 20: // unitl
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< char > (); }
-#line 575 "parser.tab.cc" // lalr1.cc:636
+#line 597 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 21: // assign
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 582 "parser.tab.cc" // lalr1.cc:636
+#line 604 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 22: // adj
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 589 "parser.tab.cc" // lalr1.cc:636
+#line 611 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 23: // typep
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< char > (); }
-#line 596 "parser.tab.cc" // lalr1.cc:636
+#line 618 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 24: // idvda
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 603 "parser.tab.cc" // lalr1.cc:636
+#line 625 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 25: // tpdelete
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 610 "parser.tab.cc" // lalr1.cc:636
+#line 632 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 26: // minus
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 617 "parser.tab.cc" // lalr1.cc:636
+#line 639 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 27: // npart
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 624 "parser.tab.cc" // lalr1.cc:636
+#line 646 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 28: // fs
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 631 "parser.tab.cc" // lalr1.cc:636
+#line 653 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 29: // mkfs
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 638 "parser.tab.cc" // lalr1.cc:636
+#line 660 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 30: // usr
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 645 "parser.tab.cc" // lalr1.cc:636
+#line 667 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 31: // pwd
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 652 "parser.tab.cc" // lalr1.cc:636
+#line 674 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 32: // mkgrp
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 659 "parser.tab.cc" // lalr1.cc:636
+#line 681 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 33: // grp
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 666 "parser.tab.cc" // lalr1.cc:636
+#line 688 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 34: // typartition
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 673 "parser.tab.cc" // lalr1.cc:636
+#line 695 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 35: // login
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 680 "parser.tab.cc" // lalr1.cc:636
+#line 702 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 36: // logout
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 687 "parser.tab.cc" // lalr1.cc:636
+#line 709 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 37: // rmgrp
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 694 "parser.tab.cc" // lalr1.cc:636
+#line 716 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 38: // mkusr
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 701 "parser.tab.cc" // lalr1.cc:636
+#line 723 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 39: // rmusr
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 708 "parser.tab.cc" // lalr1.cc:636
+#line 730 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 40: // chmod
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 715 "parser.tab.cc" // lalr1.cc:636
+#line 737 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 41: // recursive
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 722 "parser.tab.cc" // lalr1.cc:636
+#line 744 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 42: // ugo
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 729 "parser.tab.cc" // lalr1.cc:636
+#line 751 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 43: // mkFile
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 736 "parser.tab.cc" // lalr1.cc:636
+#line 758 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 44: // parametro
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 743 "parser.tab.cc" // lalr1.cc:636
+#line 765 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 45: // cont
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 750 "parser.tab.cc" // lalr1.cc:636
+#line 772 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 46: // cat
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 757 "parser.tab.cc" // lalr1.cc:636
+#line 779 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 47: // file
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 764 "parser.tab.cc" // lalr1.cc:636
+#line 786 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 48: // mkdir
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 771 "parser.tab.cc" // lalr1.cc:636
+#line 793 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 49: // loss
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 778 "parser.tab.cc" // lalr1.cc:636
+#line 800 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 50: // pause
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 785 "parser.tab.cc" // lalr1.cc:636
+#line 807 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 51: // rem
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 792 "parser.tab.cc" // lalr1.cc:636
+#line 814 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 52: // mv
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 799 "parser.tab.cc" // lalr1.cc:636
+#line 821 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 53: // dest
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 806 "parser.tab.cc" // lalr1.cc:636
+#line 828 "parser.tab.cc" // lalr1.cc:636
         break;
 
       case 54: // recovery
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 813 "parser.tab.cc" // lalr1.cc:636
+#line 835 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 56: // INICIO
+      case 55: // edit
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 820 "parser.tab.cc" // lalr1.cc:636
+#line 842 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 57: // ADMINIST
+      case 56: // ren
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 827 "parser.tab.cc" // lalr1.cc:636
+#line 849 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 58: // MKPARM
+      case 57: // cp
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 834 "parser.tab.cc" // lalr1.cc:636
+#line 856 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 59: // FDISK
+      case 58: // find
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 841 "parser.tab.cc" // lalr1.cc:636
+#line 863 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 60: // SIMBOL
+      case 59: // chown
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 848 "parser.tab.cc" // lalr1.cc:636
+#line 870 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 61: // DMOUNT
+      case 60: // chgrp
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 855 "parser.tab.cc" // lalr1.cc:636
+#line 877 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 62: // DREP
+      case 61: // ruta
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 862 "parser.tab.cc" // lalr1.cc:636
+#line 884 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 63: // MKFS
+      case 63: // INICIO
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 869 "parser.tab.cc" // lalr1.cc:636
+#line 891 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 64: // LOGIN
+      case 64: // ADMINIST
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 876 "parser.tab.cc" // lalr1.cc:636
+#line 898 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 65: // MKUSR
+      case 65: // MKPARM
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 883 "parser.tab.cc" // lalr1.cc:636
+#line 905 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 66: // CHMOD
+      case 66: // FDISK
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 890 "parser.tab.cc" // lalr1.cc:636
+#line 912 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 67: // MKFILE
+      case 67: // SIMBOL
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 897 "parser.tab.cc" // lalr1.cc:636
+#line 919 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 68: // MKDIR
+      case 68: // DMOUNT
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 904 "parser.tab.cc" // lalr1.cc:636
+#line 926 "parser.tab.cc" // lalr1.cc:636
         break;
 
-      case 69: // MV
+      case 69: // DREP
 
-#line 100 "parser.yy" // lalr1.cc:636
+#line 114 "parser.yy" // lalr1.cc:636
         { yyoutput << yysym.value.template as< string > (); }
-#line 911 "parser.tab.cc" // lalr1.cc:636
+#line 933 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 70: // MKFS
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 940 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 71: // LOGIN
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 947 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 72: // MKUSR
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 954 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 73: // CHMOD
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 961 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 74: // MKFILE
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 968 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 75: // MKDIR
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 975 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 76: // MV
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 982 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 77: // EDIT
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 989 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 78: // REN
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 996 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 79: // CHOWN
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 1003 "parser.tab.cc" // lalr1.cc:636
+        break;
+
+      case 80: // CHGRP
+
+#line 114 "parser.yy" // lalr1.cc:636
+        { yyoutput << yysym.value.template as< string > (); }
+#line 1010 "parser.tab.cc" // lalr1.cc:636
         break;
 
 
@@ -1162,20 +1261,31 @@ namespace yy {
       case 52: // mv
       case 53: // dest
       case 54: // recovery
-      case 56: // INICIO
-      case 57: // ADMINIST
-      case 58: // MKPARM
-      case 59: // FDISK
-      case 60: // SIMBOL
-      case 61: // DMOUNT
-      case 62: // DREP
-      case 63: // MKFS
-      case 64: // LOGIN
-      case 65: // MKUSR
-      case 66: // CHMOD
-      case 67: // MKFILE
-      case 68: // MKDIR
-      case 69: // MV
+      case 55: // edit
+      case 56: // ren
+      case 57: // cp
+      case 58: // find
+      case 59: // chown
+      case 60: // chgrp
+      case 61: // ruta
+      case 63: // INICIO
+      case 64: // ADMINIST
+      case 65: // MKPARM
+      case 66: // FDISK
+      case 67: // SIMBOL
+      case 68: // DMOUNT
+      case 69: // DREP
+      case 70: // MKFS
+      case 71: // LOGIN
+      case 72: // MKUSR
+      case 73: // CHMOD
+      case 74: // MKFILE
+      case 75: // MKDIR
+      case 76: // MV
+      case 77: // EDIT
+      case 78: // REN
+      case 79: // CHOWN
+      case 80: // CHGRP
         yylhs.value.build< string > ();
         break;
 
@@ -1197,379 +1307,487 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 104 "parser.yy" // lalr1.cc:859
+#line 118 "parser.yy" // lalr1.cc:859
     {}
-#line 1203 "parser.tab.cc" // lalr1.cc:859
+#line 1313 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 3:
-#line 106 "parser.yy" // lalr1.cc:859
+#line 120 "parser.yy" // lalr1.cc:859
     { mkdisk();}
-#line 1209 "parser.tab.cc" // lalr1.cc:859
+#line 1319 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 4:
-#line 107 "parser.yy" // lalr1.cc:859
+#line 121 "parser.yy" // lalr1.cc:859
     { path = yystack_[0].value.as< string > (); verificar_comillas(path); rmdisk();}
-#line 1215 "parser.tab.cc" // lalr1.cc:859
+#line 1325 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 5:
-#line 108 "parser.yy" // lalr1.cc:859
+#line 122 "parser.yy" // lalr1.cc:859
     { fdisk();}
-#line 1221 "parser.tab.cc" // lalr1.cc:859
+#line 1331 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 6:
-#line 109 "parser.yy" // lalr1.cc:859
+#line 123 "parser.yy" // lalr1.cc:859
     { mount();}
-#line 1227 "parser.tab.cc" // lalr1.cc:859
+#line 1337 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 7:
-#line 110 "parser.yy" // lalr1.cc:859
+#line 124 "parser.yy" // lalr1.cc:859
     { id = yystack_[0].value.as< string > (); unmount();}
-#line 1233 "parser.tab.cc" // lalr1.cc:859
+#line 1343 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 8:
-#line 111 "parser.yy" // lalr1.cc:859
+#line 125 "parser.yy" // lalr1.cc:859
     { rep();}
-#line 1239 "parser.tab.cc" // lalr1.cc:859
+#line 1349 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 9:
-#line 112 "parser.yy" // lalr1.cc:859
+#line 126 "parser.yy" // lalr1.cc:859
     { path = yystack_[0].value.as< string > (); verificar_comillas(path); exec = true;}
-#line 1245 "parser.tab.cc" // lalr1.cc:859
+#line 1355 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 10:
-#line 113 "parser.yy" // lalr1.cc:859
+#line 127 "parser.yy" // lalr1.cc:859
     { mkfs();}
-#line 1251 "parser.tab.cc" // lalr1.cc:859
+#line 1361 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 11:
-#line 114 "parser.yy" // lalr1.cc:859
+#line 128 "parser.yy" // lalr1.cc:859
     { login();}
-#line 1257 "parser.tab.cc" // lalr1.cc:859
+#line 1367 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 12:
-#line 115 "parser.yy" // lalr1.cc:859
+#line 129 "parser.yy" // lalr1.cc:859
     { logout();}
-#line 1263 "parser.tab.cc" // lalr1.cc:859
+#line 1373 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 13:
-#line 116 "parser.yy" // lalr1.cc:859
+#line 130 "parser.yy" // lalr1.cc:859
     { name = yystack_[0].value.as< string > (); verificar_comillas(name); mkgrp();}
-#line 1269 "parser.tab.cc" // lalr1.cc:859
+#line 1379 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 14:
-#line 117 "parser.yy" // lalr1.cc:859
+#line 131 "parser.yy" // lalr1.cc:859
     { name = yystack_[0].value.as< string > (); verificar_comillas(name); rmgrp();}
-#line 1275 "parser.tab.cc" // lalr1.cc:859
+#line 1385 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 15:
-#line 118 "parser.yy" // lalr1.cc:859
+#line 132 "parser.yy" // lalr1.cc:859
     { mkusr();}
-#line 1281 "parser.tab.cc" // lalr1.cc:859
+#line 1391 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 16:
-#line 119 "parser.yy" // lalr1.cc:859
+#line 133 "parser.yy" // lalr1.cc:859
     { usr = yystack_[0].value.as< string > (); verificar_comillas(usr); rmusr(); }
-#line 1287 "parser.tab.cc" // lalr1.cc:859
+#line 1397 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 17:
-#line 120 "parser.yy" // lalr1.cc:859
-    { }
-#line 1293 "parser.tab.cc" // lalr1.cc:859
+#line 134 "parser.yy" // lalr1.cc:859
+    { mkfile();}
+#line 1403 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 18:
-#line 121 "parser.yy" // lalr1.cc:859
-    { mkfile();}
-#line 1299 "parser.tab.cc" // lalr1.cc:859
+#line 135 "parser.yy" // lalr1.cc:859
+    { file = yystack_[0].value.as< string > (); verificar_comillas(file); cat();}
+#line 1409 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 19:
-#line 122 "parser.yy" // lalr1.cc:859
-    { file = yystack_[0].value.as< string > (); verificar_comillas(file); cat();}
-#line 1305 "parser.tab.cc" // lalr1.cc:859
+#line 136 "parser.yy" // lalr1.cc:859
+    { mkdir();}
+#line 1415 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 20:
-#line 123 "parser.yy" // lalr1.cc:859
-    { mkdir();}
-#line 1311 "parser.tab.cc" // lalr1.cc:859
+#line 137 "parser.yy" // lalr1.cc:859
+    { id = yystack_[0].value.as< string > (); loss();}
+#line 1421 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 21:
-#line 124 "parser.yy" // lalr1.cc:859
-    { id = yystack_[0].value.as< string > (); loss();}
-#line 1317 "parser.tab.cc" // lalr1.cc:859
+#line 138 "parser.yy" // lalr1.cc:859
+    { pause();}
+#line 1427 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 22:
-#line 125 "parser.yy" // lalr1.cc:859
-    { pause();}
-#line 1323 "parser.tab.cc" // lalr1.cc:859
+#line 139 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path); remover();}
+#line 1433 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 23:
-#line 126 "parser.yy" // lalr1.cc:859
-    { path = yystack_[0].value.as< string > (); verificar_comillas(path); remover();}
-#line 1329 "parser.tab.cc" // lalr1.cc:859
+#line 140 "parser.yy" // lalr1.cc:859
+    { mover();}
+#line 1439 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 24:
-#line 127 "parser.yy" // lalr1.cc:859
-    { mover();}
-#line 1335 "parser.tab.cc" // lalr1.cc:859
+#line 141 "parser.yy" // lalr1.cc:859
+    { id = yystack_[0].value.as< string > ();}
+#line 1445 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 25:
-#line 128 "parser.yy" // lalr1.cc:859
-    { id = yystack_[0].value.as< string > ();}
-#line 1341 "parser.tab.cc" // lalr1.cc:859
+#line 142 "parser.yy" // lalr1.cc:859
+    { ren(); }
+#line 1451 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 26:
-#line 130 "parser.yy" // lalr1.cc:859
-    { size = verificate_string(yystack_[0].value.as< string > ()); /* size = $3; */ }
-#line 1347 "parser.tab.cc" // lalr1.cc:859
+#line 143 "parser.yy" // lalr1.cc:859
+    { printf("\nNo hay metodo definido\n\n"); }
+#line 1457 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 27:
-#line 131 "parser.yy" // lalr1.cc:859
-    { fit = yystack_[0].value.as< string > ();}
-#line 1353 "parser.tab.cc" // lalr1.cc:859
+#line 144 "parser.yy" // lalr1.cc:859
+    { printf("\nNo hay metodo definido\n\n"); }
+#line 1463 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 28:
-#line 132 "parser.yy" // lalr1.cc:859
-    { unit = yystack_[0].value.as< char > ();}
-#line 1359 "parser.tab.cc" // lalr1.cc:859
+#line 145 "parser.yy" // lalr1.cc:859
+    { printf("\nNo hay metodo definido\n\n"); }
+#line 1469 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 29:
-#line 133 "parser.yy" // lalr1.cc:859
-    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
-#line 1365 "parser.tab.cc" // lalr1.cc:859
+#line 146 "parser.yy" // lalr1.cc:859
+    { printf("\nNo hay metodo definido\n\n"); }
+#line 1475 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 30:
-#line 134 "parser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > () = "empty";}
-#line 1371 "parser.tab.cc" // lalr1.cc:859
+#line 147 "parser.yy" // lalr1.cc:859
+    { printf("\nNo hay metodo definido\n\n"); }
+#line 1481 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 31:
+#line 148 "parser.yy" // lalr1.cc:859
+    { printf("\nNo hay metodo definido\n\n"); }
+#line 1487 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 32:
-#line 137 "parser.yy" // lalr1.cc:859
-    { type = yystack_[0].value.as< char > ();}
-#line 1377 "parser.tab.cc" // lalr1.cc:859
+#line 150 "parser.yy" // lalr1.cc:859
+    { size = verificate_string(yystack_[0].value.as< string > ()); /* size = $3; */ }
+#line 1493 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 33:
-#line 138 "parser.yy" // lalr1.cc:859
-    { tdelete = yystack_[0].value.as< string > ();  }
-#line 1383 "parser.tab.cc" // lalr1.cc:859
+#line 151 "parser.yy" // lalr1.cc:859
+    { fit = yystack_[0].value.as< string > ();}
+#line 1499 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 34:
-#line 139 "parser.yy" // lalr1.cc:859
-    { add = verificate_string(yystack_[0].value.as< string > ());/* add = $4; */ }
-#line 1389 "parser.tab.cc" // lalr1.cc:859
+#line 152 "parser.yy" // lalr1.cc:859
+    { unit = yystack_[0].value.as< char > ();}
+#line 1505 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 35:
-#line 140 "parser.yy" // lalr1.cc:859
-    { name = yystack_[0].value.as< string > (); verificar_comillas(name);}
-#line 1395 "parser.tab.cc" // lalr1.cc:859
+#line 153 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
+#line 1511 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 36:
-#line 143 "parser.yy" // lalr1.cc:859
-    { sign = "menos";}
-#line 1401 "parser.tab.cc" // lalr1.cc:859
-    break;
-
-  case 37:
-#line 144 "parser.yy" // lalr1.cc:859
-    { sign = "mas";}
-#line 1407 "parser.tab.cc" // lalr1.cc:859
+#line 154 "parser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > () = "empty";}
+#line 1517 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 38:
-#line 146 "parser.yy" // lalr1.cc:859
-    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
-#line 1413 "parser.tab.cc" // lalr1.cc:859
+#line 157 "parser.yy" // lalr1.cc:859
+    { type = yystack_[0].value.as< char > ();}
+#line 1523 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 39:
-#line 147 "parser.yy" // lalr1.cc:859
-    { name = yystack_[0].value.as< string > (); verificar_comillas(name);}
-#line 1419 "parser.tab.cc" // lalr1.cc:859
+#line 158 "parser.yy" // lalr1.cc:859
+    { tdelete = yystack_[0].value.as< string > ();  }
+#line 1529 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 40:
-#line 149 "parser.yy" // lalr1.cc:859
-    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
-#line 1425 "parser.tab.cc" // lalr1.cc:859
+#line 159 "parser.yy" // lalr1.cc:859
+    { add = verificate_string(yystack_[0].value.as< string > ());/* add = $4; */ }
+#line 1535 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 41:
-#line 150 "parser.yy" // lalr1.cc:859
+#line 160 "parser.yy" // lalr1.cc:859
     { name = yystack_[0].value.as< string > (); verificar_comillas(name);}
-#line 1431 "parser.tab.cc" // lalr1.cc:859
+#line 1541 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 42:
-#line 151 "parser.yy" // lalr1.cc:859
-    { id = yystack_[0].value.as< string > ();}
-#line 1437 "parser.tab.cc" // lalr1.cc:859
+#line 163 "parser.yy" // lalr1.cc:859
+    { sign = "menos";}
+#line 1547 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 43:
-#line 153 "parser.yy" // lalr1.cc:859
-    { id = yystack_[0].value.as< string > ();}
-#line 1443 "parser.tab.cc" // lalr1.cc:859
+#line 164 "parser.yy" // lalr1.cc:859
+    { sign = "mas";}
+#line 1553 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 44:
-#line 154 "parser.yy" // lalr1.cc:859
-    { tdelete = yystack_[0].value.as< string > ();}
-#line 1449 "parser.tab.cc" // lalr1.cc:859
+#line 166 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
+#line 1559 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 45:
-#line 155 "parser.yy" // lalr1.cc:859
-    { set_fs_char(yystack_[0].value.as< string > ());}
-#line 1455 "parser.tab.cc" // lalr1.cc:859
+#line 167 "parser.yy" // lalr1.cc:859
+    { name = yystack_[0].value.as< string > (); verificar_comillas(name);}
+#line 1565 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 46:
-#line 156 "parser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > () = "empty";}
-#line 1461 "parser.tab.cc" // lalr1.cc:859
+#line 169 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
+#line 1571 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 47:
-#line 158 "parser.yy" // lalr1.cc:859
-    { usr = yystack_[0].value.as< string > (); verificar_comillas(usr);}
-#line 1467 "parser.tab.cc" // lalr1.cc:859
+#line 170 "parser.yy" // lalr1.cc:859
+    { name = yystack_[0].value.as< string > (); verificar_comillas(name);}
+#line 1577 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 48:
-#line 159 "parser.yy" // lalr1.cc:859
-    { pwd = yystack_[0].value.as< string > (); verificar_comillas(pwd);}
-#line 1473 "parser.tab.cc" // lalr1.cc:859
+#line 171 "parser.yy" // lalr1.cc:859
+    { id = yystack_[0].value.as< string > ();}
+#line 1583 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 49:
-#line 160 "parser.yy" // lalr1.cc:859
-    { id = yystack_[0].value.as< string > ();}
-#line 1479 "parser.tab.cc" // lalr1.cc:859
+#line 172 "parser.yy" // lalr1.cc:859
+    { ruta = yystack_[0].value.as< string > (); verificar_comillas(ruta);}
+#line 1589 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 50:
-#line 162 "parser.yy" // lalr1.cc:859
-    { usr = yystack_[0].value.as< string > (); verificar_comillas(usr);}
-#line 1485 "parser.tab.cc" // lalr1.cc:859
+#line 173 "parser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > () = "empty";}
+#line 1595 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 51:
-#line 163 "parser.yy" // lalr1.cc:859
-    { pwd = yystack_[0].value.as< string > (); verificar_comillas(pwd);}
-#line 1491 "parser.tab.cc" // lalr1.cc:859
+#line 175 "parser.yy" // lalr1.cc:859
+    { id = yystack_[0].value.as< string > ();}
+#line 1601 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 52:
-#line 164 "parser.yy" // lalr1.cc:859
-    { grp = yystack_[0].value.as< string > (); verificar_comillas(grp);}
-#line 1497 "parser.tab.cc" // lalr1.cc:859
+#line 176 "parser.yy" // lalr1.cc:859
+    { tdelete = yystack_[0].value.as< string > ();}
+#line 1607 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 53:
-#line 166 "parser.yy" // lalr1.cc:859
-    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
-#line 1503 "parser.tab.cc" // lalr1.cc:859
+#line 177 "parser.yy" // lalr1.cc:859
+    { set_fs_char(yystack_[0].value.as< string > ());}
+#line 1613 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 54:
+#line 178 "parser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > () = "empty";}
+#line 1619 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 55:
-#line 169 "parser.yy" // lalr1.cc:859
-    { size = verificate_string(yystack_[0].value.as< string > ()); /* size = $3; */ }
-#line 1509 "parser.tab.cc" // lalr1.cc:859
+#line 180 "parser.yy" // lalr1.cc:859
+    { usr = yystack_[0].value.as< string > (); verificar_comillas(usr);}
+#line 1625 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 56:
-#line 170 "parser.yy" // lalr1.cc:859
-    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
-#line 1515 "parser.tab.cc" // lalr1.cc:859
+#line 181 "parser.yy" // lalr1.cc:859
+    { pwd = yystack_[0].value.as< string > (); verificar_comillas(pwd);}
+#line 1631 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 57:
-#line 171 "parser.yy" // lalr1.cc:859
-    { atribp = 's';}
-#line 1521 "parser.tab.cc" // lalr1.cc:859
+#line 182 "parser.yy" // lalr1.cc:859
+    { id = yystack_[0].value.as< string > ();}
+#line 1637 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 58:
-#line 172 "parser.yy" // lalr1.cc:859
-    { cont = yystack_[0].value.as< string > (); verificar_comillas(cont);}
-#line 1527 "parser.tab.cc" // lalr1.cc:859
+#line 184 "parser.yy" // lalr1.cc:859
+    { usr = yystack_[0].value.as< string > (); verificar_comillas(usr);}
+#line 1643 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 59:
-#line 173 "parser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > () = "empty";}
-#line 1533 "parser.tab.cc" // lalr1.cc:859
+#line 185 "parser.yy" // lalr1.cc:859
+    { pwd = yystack_[0].value.as< string > (); verificar_comillas(pwd);}
+#line 1649 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 60:
-#line 175 "parser.yy" // lalr1.cc:859
-    { atribp = 's';}
-#line 1539 "parser.tab.cc" // lalr1.cc:859
+#line 186 "parser.yy" // lalr1.cc:859
+    { grp = yystack_[0].value.as< string > (); verificar_comillas(grp);}
+#line 1655 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 61:
-#line 176 "parser.yy" // lalr1.cc:859
-    { id = yystack_[0].value.as< string > ();}
-#line 1545 "parser.tab.cc" // lalr1.cc:859
+#line 188 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
+#line 1661 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 62:
-#line 177 "parser.yy" // lalr1.cc:859
-    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
-#line 1551 "parser.tab.cc" // lalr1.cc:859
-    break;
-
-  case 63:
-#line 178 "parser.yy" // lalr1.cc:859
-    { yylhs.value.as< string > () = "empty";}
-#line 1557 "parser.tab.cc" // lalr1.cc:859
+#line 189 "parser.yy" // lalr1.cc:859
+    { /*size = verificate_string($3); /* size = $3; */ }
+#line 1667 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 64:
-#line 180 "parser.yy" // lalr1.cc:859
-    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
-#line 1563 "parser.tab.cc" // lalr1.cc:859
+#line 191 "parser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > () = "empty";}
+#line 1673 "parser.tab.cc" // lalr1.cc:859
     break;
 
   case 65:
-#line 181 "parser.yy" // lalr1.cc:859
+#line 193 "parser.yy" // lalr1.cc:859
+    { size = verificate_string(yystack_[0].value.as< string > ()); /* size = $3; */ }
+#line 1679 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 66:
+#line 194 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
+#line 1685 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 67:
+#line 195 "parser.yy" // lalr1.cc:859
+    { atribp = 's';}
+#line 1691 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 68:
+#line 196 "parser.yy" // lalr1.cc:859
+    { cont = yystack_[0].value.as< string > (); verificar_comillas(cont);}
+#line 1697 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 69:
+#line 197 "parser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > () = "empty";}
+#line 1703 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 70:
+#line 199 "parser.yy" // lalr1.cc:859
+    { atribp = 's';}
+#line 1709 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 71:
+#line 200 "parser.yy" // lalr1.cc:859
+    { id = yystack_[0].value.as< string > ();}
+#line 1715 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 72:
+#line 201 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
+#line 1721 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 73:
+#line 202 "parser.yy" // lalr1.cc:859
+    { yylhs.value.as< string > () = "empty";}
+#line 1727 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 74:
+#line 204 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
+#line 1733 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 75:
+#line 205 "parser.yy" // lalr1.cc:859
     { dest = yystack_[0].value.as< string > (); verificar_comillas(dest);}
-#line 1569 "parser.tab.cc" // lalr1.cc:859
+#line 1739 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 76:
+#line 208 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
+#line 1745 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 77:
+#line 209 "parser.yy" // lalr1.cc:859
+    { cont = yystack_[0].value.as< string > (); verificar_comillas(cont);}
+#line 1751 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 78:
+#line 211 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
+#line 1757 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 79:
+#line 212 "parser.yy" // lalr1.cc:859
+    { name = yystack_[0].value.as< string > (); verificar_comillas(name);}
+#line 1763 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 80:
+#line 214 "parser.yy" // lalr1.cc:859
+    { path = yystack_[0].value.as< string > (); verificar_comillas(path);}
+#line 1769 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 82:
+#line 216 "parser.yy" // lalr1.cc:859
+    { usr = yystack_[0].value.as< string > (); verificar_comillas(usr);}
+#line 1775 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 83:
+#line 218 "parser.yy" // lalr1.cc:859
+    { usr = yystack_[0].value.as< string > (); verificar_comillas(usr);}
+#line 1781 "parser.tab.cc" // lalr1.cc:859
+    break;
+
+  case 84:
+#line 219 "parser.yy" // lalr1.cc:859
+    { grp = yystack_[0].value.as< string > (); verificar_comillas(grp);}
+#line 1787 "parser.tab.cc" // lalr1.cc:859
     break;
 
 
-#line 1573 "parser.tab.cc" // lalr1.cc:859
+#line 1791 "parser.tab.cc" // lalr1.cc:859
             default:
               break;
             }
@@ -1824,116 +2042,138 @@ namespace yy {
   }
 
 
-  const signed char analizer_parser::yypact_ninf_ = -73;
+  const signed char analizer_parser::yypact_ninf_ = -85;
 
   const signed char analizer_parser::yytable_ninf_ = -1;
 
   const short int
   analizer_parser::yypact_[] =
   {
-      62,    38,     8,    13,     9,    22,     7,    15,     6,    17,
-       1,   -73,    21,    33,    -8,    10,     5,    -2,     4,    28,
-     -73,    40,     3,    26,    51,   -73,    32,    44,    46,    47,
-      38,    52,    54,    55,    13,    57,    59,    60,    61,    63,
-     -73,    22,    64,    66,    67,     7,    68,    69,    71,    72,
-       6,    74,    75,    82,    83,     1,    88,    94,    96,    97,
-      33,    98,    99,   -73,    10,   100,   101,   -73,   102,     5,
-     103,   104,   105,   -73,     4,   106,   107,   108,   109,     3,
-      35,   -73,    56,   110,   111,   114,    38,   115,   116,   112,
-     -73,   117,   113,   120,   121,   124,    22,   130,   119,   123,
-       7,   132,   128,   129,   122,     6,   126,   131,   133,   134,
-       1,   135,   136,   137,   138,    33,   139,   140,   -73,   141,
-     148,   150,     5,   151,   152,   149,     4,   153,   155,   156,
-     157,   -73,   -73,   -73,   -73,   -73,   -73,    38,   -73,   -73,
-     -73,   -73,   -73,   -73,   145,   -73,   -73,    22,   -73,   -73,
-     -73,   -73,   -73,   -73,   -73,   -73,   -73,   -73,   -73,   -73,
-     -73,   -73,   -73,   -73,   -73,   -73,   -73,   -73,   -73,   -73,
-     -73,   -73,     5,   -73,   -73,   -73,   -73,   -73,   -73,   -73,
-     -73,   -73,   -73,    22,   -73,    22,    22,   -73
+      78,    38,    21,    18,    22,   139,     4,    26,    12,    29,
+       8,   -85,    33,    -2,     7,     5,    15,    10,    11,    40,
+     -85,    46,     1,    37,     3,    19,     1,    19,    20,    23,
+      62,   -85,    42,    43,    45,    47,    38,    48,    49,    50,
+      18,    68,    70,    71,    73,    75,   -85,   139,    76,    77,
+      79,    80,     4,    81,    82,    83,    84,    12,    85,    87,
+      90,    91,     8,    98,    99,   101,   102,    -2,   104,   110,
+     -85,   125,     5,   126,   127,   -85,   128,    15,   129,   130,
+     133,   -85,    11,   135,   137,   138,   140,     1,   136,   141,
+     142,     3,   143,   144,    19,     1,    19,   145,   146,   -85,
+      20,   147,   148,    23,   -85,    72,   149,   150,   153,    38,
+     154,   155,   151,   -85,   156,   152,    41,   157,   158,   139,
+     160,   159,   161,   163,     4,   166,   162,   164,   165,    12,
+     167,   168,   169,   170,     8,   171,   173,   174,   175,    -2,
+     176,   185,   178,     5,   179,   188,   189,    15,   190,   191,
+     187,    11,   192,   193,   194,   195,   -85,   -85,   196,   197,
+     -85,   198,   199,   -85,   -85,   -85,   200,   201,    20,   202,
+     203,   -85,   -85,   -85,   -85,   -85,    38,   -85,   -85,   -85,
+     -85,   -85,   -85,   204,   -85,   -85,   139,   -85,   -85,   -85,
+     -85,     4,   -85,   -85,   -85,   -85,   -85,   -85,   -85,   -85,
+     -85,   -85,   -85,   -85,   -85,   -85,   -85,   -85,   -85,   -85,
+     -85,   -85,   -85,   -85,    15,   -85,   -85,   -85,   -85,   -85,
+     -85,   -85,   -85,   -85,   -85,   -85,   -85,   -85,   -85,   -85,
+     -85,   -85,   -85,   -85,   139,   -85,   -85,   139,   139,   -85
   };
 
   const unsigned char
   analizer_parser::yydefact_[] =
   {
-       0,    30,     0,     0,     0,    30,     0,     0,    46,     0,
-       0,    12,     0,     0,     0,     0,    59,     0,    63,     0,
-      22,     0,     0,     0,     0,     2,     0,     0,     0,     0,
-      30,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-      31,    30,     0,     0,     0,     0,     0,     0,     0,     0,
-      46,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    54,     0,     0,     0,    57,     0,    59,
-       0,     0,     0,    60,    63,     0,     0,     0,     0,     0,
-       0,     1,     0,     0,     0,     0,    30,     0,     0,     0,
-       6,     0,     0,    37,     0,     0,    30,     0,     0,     0,
-       0,     0,     0,     0,     0,    46,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    17,     0,
-       0,     0,    59,     0,     0,     0,    63,     0,     0,     0,
-       0,    24,    25,    26,    27,    28,    29,    30,     4,    38,
-      39,     7,    33,    36,     0,    35,    32,    30,    40,    42,
-      41,     8,     9,    43,    44,    45,    10,    13,    49,    47,
-      48,    11,    14,    50,    51,    52,    15,    16,    53,    55,
-      56,    58,    59,    19,    62,    61,    20,    21,    23,    64,
-      65,     3,    34,    30,    18,    30,    30,     5
+       0,    36,     0,     0,     0,    36,    50,     0,    54,     0,
+       0,    12,     0,     0,     0,    64,    69,     0,    73,     0,
+      21,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     2,     0,     0,     0,     0,    36,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    37,    36,     0,     0,
+       0,     0,    50,     0,     0,     0,     0,    54,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+      63,     0,    64,     0,     0,    67,     0,    69,     0,     0,
+       0,    70,    73,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,    81,
+       0,     0,     0,     0,     1,     0,     0,     0,     0,    36,
+       0,     0,     0,     6,     0,     0,    43,     0,     0,    36,
+       0,     0,     0,     0,    50,     0,     0,     0,     0,    54,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    64,     0,     0,     0,    69,     0,     0,
+       0,    73,     0,     0,     0,     0,    23,    24,     0,     0,
+      26,     0,     0,    25,    27,    28,     0,     0,     0,     0,
+       0,    31,    32,    33,    34,    35,    36,     4,    44,    45,
+       7,    39,    42,     0,    41,    38,    36,    46,    48,    47,
+      49,    50,     9,    51,    52,    53,    10,    13,    57,    55,
+      56,    11,    14,    58,    59,    60,    15,    16,    61,    62,
+      29,    65,    66,    68,    69,    18,    72,    71,    19,    20,
+      22,    74,    75,    76,    77,    78,    79,    80,    82,    30,
+      83,    84,     3,    40,    36,     8,    17,    36,    36,     5
   };
 
   const short int
   analizer_parser::yypgoto_[] =
   {
-     -73,   -73,   -73,     0,   -41,   -73,   144,   -42,   -45,   -49,
-     -53,    76,   -65,   -72,    78
+     -85,   -85,   -85,     0,   -47,   -85,   180,   -50,   -53,   -57,
+     -61,   -64,   -74,   -70,   -12,   131,   -14,   -84,    92
   };
 
   const short int
   analizer_parser::yydefgoto_[] =
   {
-      -1,    24,    25,    40,    41,   144,    34,    45,    50,    55,
-      60,    64,    69,    74,    79
+      -1,    30,    31,    46,    47,   183,    40,    52,    57,    62,
+      67,    72,    77,    82,    87,    91,    94,   100,   103
   };
 
   const unsigned char
   analizer_parser::yytable_[] =
   {
-      96,    30,   126,   100,   122,   105,   110,   115,    65,    77,
-      71,    66,    52,    42,    31,    72,    62,    47,    43,    32,
-      35,    46,    61,    44,    48,    26,    27,    28,    29,    33,
-      86,    53,    54,    51,    49,    36,    37,    56,    38,    75,
-      39,    26,    27,    28,    29,    70,    76,    80,    73,    67,
-      68,    81,    63,    82,   176,   147,    78,   172,   151,   132,
-     156,   161,   166,    57,    58,    83,    59,    84,    85,     1,
-       2,     3,     4,    87,     5,    88,    89,     6,    91,     7,
-      92,    93,    94,   133,    95,    97,   137,    98,    99,   101,
-     102,     8,   103,   104,     9,   106,   107,    10,    11,    12,
-      13,    14,    15,   108,   109,    16,   183,   184,    17,   111,
-      18,    19,    20,    21,    22,   112,    23,   113,   114,   116,
-     117,   119,   120,   121,   123,   124,   125,   127,   128,   129,
-     130,   135,   134,   136,   138,   139,     0,   181,   142,   140,
-     118,   141,   185,   149,   186,   187,   143,   146,   145,   148,
-     150,   152,   153,   157,   154,   158,   155,   131,     0,   168,
-     159,   160,   162,   163,   164,   165,   167,   170,   169,   171,
-     173,   174,   182,   175,   178,   179,   180,   177,    90
+     119,    36,   124,   147,   129,   134,   139,    85,   143,    89,
+      48,    69,   151,    96,    95,    49,   168,    79,    73,    59,
+      50,    74,    80,    54,    38,    92,    97,    37,    64,    65,
+      55,    66,    53,    41,    39,    93,   109,    68,    60,    61,
+      56,    32,    33,    34,    35,    58,    70,    71,    90,    63,
+      98,    83,    84,   101,    86,    81,   102,    78,    88,    75,
+      76,    99,   104,   105,   106,    51,   107,   182,   108,   110,
+     111,   112,   186,   214,   191,   156,   196,   201,   206,   210,
+     163,   218,   165,   164,   229,     1,     2,     3,     4,   114,
+       5,   115,   116,     6,   117,     7,   118,   120,   121,   172,
+     122,   123,   125,   126,   127,   128,   130,     8,   131,   176,
+       9,   132,   133,    10,    11,    12,    13,    14,    15,   135,
+     136,    16,   137,   138,    17,   140,    18,    19,    20,    21,
+      22,   141,    23,    24,    25,    26,    27,    28,    29,   234,
+     236,   235,    32,    33,    34,    35,   142,   144,   145,   146,
+     148,   149,    42,    43,   150,    44,   152,    45,   153,   154,
+     157,   155,   158,   159,   161,   162,   166,   167,   169,   170,
+     174,   173,   175,   177,   178,     0,   232,   181,   179,   187,
+     180,   185,   190,   188,   184,   192,   193,   237,   189,   194,
+     238,   239,   198,     0,   197,   171,   199,   200,   202,   195,
+     203,   204,   205,   207,   208,   209,   211,   212,   213,   215,
+     216,   217,   220,   221,   222,   223,   219,   225,     0,   227,
+     113,     0,   160,     0,   224,     0,   226,     0,   228,   230,
+     231,   233
   };
 
   const short int
   analizer_parser::yycheck_[] =
   {
-      41,     1,    74,    45,    69,    50,    55,    60,     3,     6,
-       6,     6,    11,     6,     6,    11,     6,    11,    11,     6,
-      11,     6,    30,    16,    18,     3,     4,     5,     6,    16,
-      30,    30,    31,    16,    28,    13,    14,    16,    16,    11,
-      18,     3,     4,     5,     6,    47,     6,    21,    44,    44,
-      45,     0,    42,    21,   126,    96,    53,   122,   100,    24,
-     105,   110,   115,    30,    31,    21,    33,    21,    21,     7,
-       8,     9,    10,    21,    12,    21,    21,    15,    21,    17,
-      21,    21,    21,    27,    21,    21,    86,    21,    21,    21,
-      21,    29,    21,    21,    32,    21,    21,    35,    36,    37,
-      38,    39,    40,    21,    21,    43,   147,   172,    46,    21,
-      48,    49,    50,    51,    52,    21,    54,    21,    21,    21,
-      21,    21,    21,    21,    21,    21,    21,    21,    21,    21,
-      21,    20,    22,    19,    19,    19,    -1,   137,    25,    27,
-      64,    24,   183,    24,   185,   186,    26,    23,    27,    19,
-      27,    19,    24,    27,    25,    24,    34,    79,    -1,    19,
-      27,    27,    27,    27,    27,    27,    27,    19,    27,    19,
-      19,    19,    27,    24,    19,    19,    19,    24,    34
+      47,     1,    52,    77,    57,    62,    67,     6,    72,     6,
+       6,     6,    82,    27,    26,    11,   100,     6,     3,    11,
+      16,     6,    11,    11,     6,     6,     6,     6,    30,    31,
+      18,    33,     6,    11,    16,    16,    36,    30,    30,    31,
+      28,     3,     4,     5,     6,    16,    41,    42,    45,    16,
+      30,    11,     6,    30,    53,    44,    33,    47,    21,    44,
+      45,    41,     0,    21,    21,    61,    21,    26,    21,    21,
+      21,    21,   119,   147,   124,    87,   129,   134,   139,   143,
+      94,   151,    96,    95,   168,     7,     8,     9,    10,    21,
+      12,    21,    21,    15,    21,    17,    21,    21,    21,    27,
+      21,    21,    21,    21,    21,    21,    21,    29,    21,   109,
+      32,    21,    21,    35,    36,    37,    38,    39,    40,    21,
+      21,    43,    21,    21,    46,    21,    48,    49,    50,    51,
+      52,    21,    54,    55,    56,    57,    58,    59,    60,   186,
+     214,   191,     3,     4,     5,     6,    21,    21,    21,    21,
+      21,    21,    13,    14,    21,    16,    21,    18,    21,    21,
+      24,    21,    21,    21,    21,    21,    21,    21,    21,    21,
+      20,    22,    19,    19,    19,    -1,   176,    25,    27,    19,
+      24,    23,    19,    24,    27,    19,    24,   234,    27,    25,
+     237,   238,    24,    -1,    27,   103,    27,    27,    27,    34,
+      27,    27,    27,    27,    19,    27,    27,    19,    19,    19,
+      19,    24,    19,    19,    19,    19,    24,    19,    -1,    19,
+      40,    -1,    91,    -1,    27,    -1,    27,    -1,    27,    27,
+      27,    27
   };
 
   const unsigned char
@@ -1941,47 +2181,56 @@ namespace yy {
   {
        0,     7,     8,     9,    10,    12,    15,    17,    29,    32,
       35,    36,    37,    38,    39,    40,    43,    46,    48,    49,
-      50,    51,    52,    54,    56,    57,     3,     4,     5,     6,
-      58,     6,     6,    16,    61,    11,    13,    14,    16,    18,
-      58,    59,     6,    11,    16,    62,     6,    11,    18,    28,
-      63,    16,    11,    30,    31,    64,    16,    30,    31,    33,
-      65,    30,     6,    42,    66,     3,     6,    44,    45,    67,
-      47,     6,    11,    44,    68,    11,     6,     6,    53,    69,
-      21,     0,    21,    21,    21,    21,    58,    21,    21,    21,
-      61,    21,    21,    21,    21,    21,    59,    21,    21,    21,
-      62,    21,    21,    21,    21,    63,    21,    21,    21,    21,
-      64,    21,    21,    21,    21,    65,    21,    21,    66,    21,
-      21,    21,    67,    21,    21,    21,    68,    21,    21,    21,
-      21,    69,    24,    27,    22,    20,    19,    58,    19,    19,
-      27,    24,    25,    26,    60,    27,    23,    59,    19,    24,
-      27,    62,    19,    24,    25,    34,    63,    27,    24,    27,
-      27,    64,    27,    27,    27,    27,    65,    27,    19,    27,
-      19,    19,    67,    19,    19,    24,    68,    24,    19,    19,
-      19,    58,    27,    59,    67,    59,    59,    59
+      50,    51,    52,    54,    55,    56,    57,    58,    59,    60,
+      63,    64,     3,     4,     5,     6,    65,     6,     6,    16,
+      68,    11,    13,    14,    16,    18,    65,    66,     6,    11,
+      16,    61,    69,     6,    11,    18,    28,    70,    16,    11,
+      30,    31,    71,    16,    30,    31,    33,    72,    30,     6,
+      41,    42,    73,     3,     6,    44,    45,    74,    47,     6,
+      11,    44,    75,    11,     6,     6,    53,    76,    21,     6,
+      45,    77,     6,    16,    78,    76,    78,     6,    30,    41,
+      79,    30,    33,    80,     0,    21,    21,    21,    21,    65,
+      21,    21,    21,    68,    21,    21,    21,    21,    21,    66,
+      21,    21,    21,    21,    69,    21,    21,    21,    21,    70,
+      21,    21,    21,    21,    71,    21,    21,    21,    21,    72,
+      21,    21,    21,    73,    21,    21,    21,    74,    21,    21,
+      21,    75,    21,    21,    21,    21,    76,    24,    21,    21,
+      77,    21,    21,    78,    76,    78,    21,    21,    79,    21,
+      21,    80,    27,    22,    20,    19,    65,    19,    19,    27,
+      24,    25,    26,    67,    27,    23,    66,    19,    24,    27,
+      19,    69,    19,    24,    25,    34,    70,    27,    24,    27,
+      27,    71,    27,    27,    27,    27,    72,    27,    19,    27,
+      73,    27,    19,    19,    74,    19,    19,    24,    75,    24,
+      19,    19,    19,    19,    27,    19,    27,    19,    27,    79,
+      27,    27,    65,    27,    66,    69,    74,    66,    66,    66
   };
 
   const unsigned char
   analizer_parser::yyr1_[] =
   {
-       0,    55,    56,    57,    57,    57,    57,    57,    57,    57,
-      57,    57,    57,    57,    57,    57,    57,    57,    57,    57,
-      57,    57,    57,    57,    57,    57,    58,    58,    58,    58,
-      58,    59,    59,    59,    59,    59,    60,    60,    61,    61,
-      62,    62,    62,    63,    63,    63,    63,    64,    64,    64,
-      65,    65,    65,    66,    66,    67,    67,    67,    67,    67,
-      68,    68,    68,    68,    69,    69
+       0,    62,    63,    64,    64,    64,    64,    64,    64,    64,
+      64,    64,    64,    64,    64,    64,    64,    64,    64,    64,
+      64,    64,    64,    64,    64,    64,    64,    64,    64,    64,
+      64,    64,    65,    65,    65,    65,    65,    66,    66,    66,
+      66,    66,    67,    67,    68,    68,    69,    69,    69,    69,
+      69,    70,    70,    70,    70,    71,    71,    71,    72,    72,
+      72,    73,    73,    73,    73,    74,    74,    74,    74,    74,
+      75,    75,    75,    75,    76,    76,    77,    77,    78,    78,
+      79,    79,    79,    80,    80
   };
 
   const unsigned char
   analizer_parser::yyr2_[] =
   {
-       0,     2,     1,     5,     4,     8,     3,     4,     4,     4,
-       4,     4,     1,     4,     4,     4,     4,     3,     5,     4,
-       4,     4,     1,     4,     3,     3,     3,     3,     3,     3,
-       0,     1,     3,     3,     4,     3,     1,     0,     3,     3,
-       3,     3,     3,     3,     3,     3,     0,     3,     3,     3,
-       3,     3,     3,     3,     1,     3,     3,     1,     3,     0,
-       1,     3,     3,     0,     3,     3
+       0,     2,     1,     5,     4,     8,     3,     4,     5,     4,
+       4,     4,     1,     4,     4,     4,     4,     5,     4,     4,
+       4,     1,     4,     3,     3,     3,     3,     3,     3,     4,
+       4,     3,     3,     3,     3,     3,     0,     1,     3,     3,
+       4,     3,     1,     0,     3,     3,     3,     3,     3,     3,
+       0,     3,     3,     3,     0,     3,     3,     3,     3,     3,
+       3,     3,     3,     1,     0,     3,     3,     1,     3,     0,
+       1,     3,     3,     0,     3,     3,     3,     3,     3,     3,
+       3,     1,     3,     3,     3
   };
 
 
@@ -1998,22 +2247,25 @@ namespace yy {
   "pwd", "mkgrp", "grp", "typartition", "login", "logout", "rmgrp",
   "mkusr", "rmusr", "chmod", "recursive", "ugo", "mkFile", "parametro",
   "cont", "cat", "file", "mkdir", "loss", "pause", "rem", "mv", "dest",
-  "recovery", "$accept", "INICIO", "ADMINIST", "MKPARM", "FDISK", "SIMBOL",
-  "DMOUNT", "DREP", "MKFS", "LOGIN", "MKUSR", "CHMOD", "MKFILE", "MKDIR",
-  "MV", YY_NULLPTR
+  "recovery", "edit", "ren", "cp", "find", "chown", "chgrp", "ruta",
+  "$accept", "INICIO", "ADMINIST", "MKPARM", "FDISK", "SIMBOL", "DMOUNT",
+  "DREP", "MKFS", "LOGIN", "MKUSR", "CHMOD", "MKFILE", "MKDIR", "MV",
+  "EDIT", "REN", "CHOWN", "CHGRP", YY_NULLPTR
   };
 
 #if YYDEBUG
   const unsigned char
   analizer_parser::yyrline_[] =
   {
-       0,   104,   104,   106,   107,   108,   109,   110,   111,   112,
-     113,   114,   115,   116,   117,   118,   119,   120,   121,   122,
-     123,   124,   125,   126,   127,   128,   130,   131,   132,   133,
-     134,   136,   137,   138,   139,   140,   143,   144,   146,   147,
-     149,   150,   151,   153,   154,   155,   156,   158,   159,   160,
-     162,   163,   164,   166,   167,   169,   170,   171,   172,   173,
-     175,   176,   177,   178,   180,   181
+       0,   118,   118,   120,   121,   122,   123,   124,   125,   126,
+     127,   128,   129,   130,   131,   132,   133,   134,   135,   136,
+     137,   138,   139,   140,   141,   142,   143,   144,   145,   146,
+     147,   148,   150,   151,   152,   153,   154,   156,   157,   158,
+     159,   160,   163,   164,   166,   167,   169,   170,   171,   172,
+     173,   175,   176,   177,   178,   180,   181,   182,   184,   185,
+     186,   188,   189,   190,   191,   193,   194,   195,   196,   197,
+     199,   200,   201,   202,   204,   205,   208,   209,   211,   212,
+     214,   215,   216,   218,   219
   };
 
   // Print the state stack on the debug stream.
@@ -2048,8 +2300,8 @@ namespace yy {
 
 #line 5 "parser.yy" // lalr1.cc:1167
 } // yy
-#line 2052 "parser.tab.cc" // lalr1.cc:1167
-#line 185 "parser.yy" // lalr1.cc:1168
+#line 2304 "parser.tab.cc" // lalr1.cc:1167
+#line 223 "parser.yy" // lalr1.cc:1168
 
 
 void yy::analizer_parser::error(const location_type& lugar, const std::string& lexema)

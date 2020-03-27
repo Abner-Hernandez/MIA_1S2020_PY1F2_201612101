@@ -34,6 +34,13 @@ COMENTARIOLL "//"[^*\n]*
 DELIMITADOR [ \t\r\f\n]+
 %%
 
+"-ruta"         {return yy::analizer_parser::make_ruta(yytext, loc);}
+"chgrp"         {return yy::analizer_parser::make_chgrp(yytext, loc);}
+"chown"         {return yy::analizer_parser::make_chown(yytext, loc);}
+"find"          {return yy::analizer_parser::make_find(yytext, loc);}
+"cp"            {return yy::analizer_parser::make_cp(yytext, loc);}
+"edit"          {return yy::analizer_parser::make_edit(yytext, loc);}
+"ren"           {return yy::analizer_parser::make_ren(yytext, loc);}
 "recovery"      {return yy::analizer_parser::make_recovery(yytext, loc);}
 "-dest"         {return yy::analizer_parser::make_dest(yytext, loc);}
 "mv"            {return yy::analizer_parser::make_mv(yytext, loc);}

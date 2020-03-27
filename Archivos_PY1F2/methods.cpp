@@ -258,6 +258,9 @@ int reminodo2(char* ti, char* tb,int ino, FILE* f,SB sb);
 int remblock2(char* ti, char* tb,int blo, FILE* f,SB sb);
 int reminodo3(char* ti, char* tb,int ino, FILE* f,SB sb);
 int remblock3(char* ti, char* tb,int blo, FILE* f,SB sb);
+int buscar_rename(char nombre[], int inodoactual,SB* sb, FILE* f, char nombre_new[]);
+bool verificar_carpeta(char name[], int size);
+void ren();
 
 
 void verificar_comillas(string &cadena)
@@ -291,7 +294,6 @@ void default_vars()
     size = 0;
     number = 0;
     repfile = "";
-    refil = false;
     fs = '*';
     pwd = "";
     usr = "";
@@ -305,6 +307,9 @@ void default_vars()
     inodop = 0;
     inodos = 0;
     atribp = '*';
+    aux_atribp = '*';
+    aux_cont = "";
+    aux_size = 0;
 
 }
 
@@ -3943,12 +3948,8 @@ void mkfile()
     int ds = 0;
     vector<string> ruta = split(path,'/');
     copy_vars();
-    //aux = ;
-    //if(inodomkfj == -1){
-       ds = loopruta(ruta,1,0,sb,f,'a');
-    //}else{
-    //    ds = crearAC('a',sb,inodomkfj,f,name);
-    //}
+
+    ds = loopruta(ruta,1,0,sb,f,'a');
 
     if(ds > -1){
         if(sb.s_filesystem_type == 3)
@@ -4413,9 +4414,6 @@ int crearAC(char tipo,SB& sb, int inodoa,FILE* f,string nombre)
                 fwrite(&bcc,sizeof(bcc),1,f);
 
                 tempi[inodoarchivo] = '1';
-
-                //fseek(f,sb.s_block_start+p.i_block[i]*sb.s_block_size,SEEK_SET);
-                //fwrite(&c,sizeof(c),1,f);
 
                 char tipp ='*';
                 if(aux_cont == "")
@@ -5834,6 +5832,15 @@ void recovery()
             path = "";
             atribp = '*';
             inodomkfj = -1;
+        }else if(jo[i].type_trans == 8)
+        {
+            path = string(jo[i].contenido);
+            name = path.substr(0, i) + string(jo[i].name);
+            idusuarioactual = jo[i].propietario;
+            idgrupoactual = jo[i].grupo;
+            ren();
+
+
         }
     }
 
@@ -7344,7 +7351,7 @@ void remover()
 {
     if(path.compare("") == 0)
     {
-        printf("Error, ingrese una path valida\n");
+        printf("\nError, ingrese una path valida\n\n");
         return;
     }
 
@@ -7356,7 +7363,7 @@ void remover()
     FILE* f = fopen(part.path.c_str(),"r+b");
     if(f == NULL)
     {
-        printf("Error no se pudo leer el disco\n");
+        printf("\nError no se pudo leer el disco\n\n");
         return;
     }
     SB sb;
@@ -7374,13 +7381,12 @@ void remover()
 
     if(path[0] != '/')
     {
-        printf("Error ruta no valida para la creacion del archivo\n");
+        printf("\nError ruta no valida para la creacion del archivo\n\n");
         fclose(f);
         return;
     }
     char te[13];
     clean_char(te,13);
-    int punt = 0;
     int inodoa = 0;
     int inodop = 0;
     char tempi[sb.s_inodes_count];
@@ -7394,75 +7400,61 @@ void remover()
 
     char permisos[4];
 
-    for(int i = 1; i<300;i++)
-    {
-        //if(path[i] == '\0')
-        //{
-        //    break;
-        //}
-        if(path[i] != '/' && path[i] != '\0')
-        {
-            if(punt == 12)
-            {
-                printf("Error el nombre de un archivo no puede tener mas de 12 caracteres");
-                fclose(f);
-                return;
-            }
-            te[punt] = path[i];
+    vector<string> ruta = split(path,'/');
 
-            punt++;
+    for(unsigned int i = 1 ; i < ruta.size(); i++)
+    {
+        if(ruta[i].size() > 12)
+        {
+            printf("\nError el nombre de un archivo no puede tener mas de 12 caracteres\n\n");
+            fclose(f);
+            return;
+        }else
+            copiar(te,const_cast<char*>(ruta[i].c_str()), ruta[i].size());
+
+        int ia = -1;
+        clean_char(permisos,4);
+        verificarpermisos(permisos,sb,inodoa,f);
+        if(permisos[0] == '0')
+        {
+            printf("\nError no se tiene acceso de lectura en la carpeta %s\n\n",te);
+            fclose(f);
+            return;
+        }
+        ia = buscarcarpeta(te,inodoa,&sb,f);
+        if(ia != -1)
+        {
+            inodop = inodoa;
+            inodoa = ia;
+            clean_char(te,13);
         }else
         {
-
-            int ia = -1;
-            clean_char(permisos,4);
-            verificarpermisos(permisos,sb,inodoa,f);
-            if(permisos[0] == '0')
-            {
-                printf("Error no se tiene acceso de lectura en la carpeta %s\n",te);
-                fclose(f);
-                return;
-            }
-            ia = buscarcarpeta(te,inodoa,&sb,f);
-            if(ia != -1)
-            {
-                inodop = inodoa;
-                inodoa = ia;
-                punt = 0;
-                if(path[i] == '\0')
-                {
-                    break;
-                }
-                clean_char(te,13);
-
-            }else
-            {
-                printf("Error, la ruta ingresada no existe\n");
-                fclose(f);
-                return;
-            }
+            printf("\nError, la ruta ingresada no existe\n\n");
+            fclose(f);
+            return;
         }
+
     }
 
     clean_char(permisos,4);
     verificarpermisos(permisos,sb,inodoa,f);
     if(permisos[1] == '0')
     {
-        printf("Error el usuario no puede eliminar la carpeta\n");
+        printf("\nError el usuario no puede eliminar la carpeta\n\n");
         fclose(f);
         return;
     }
 
     if(reminodo(inodoa,f,sb) == -1)
     {
-        printf("Error el usuario no puede eliminar la carpeta\n");
+        printf("\nError el usuario no puede eliminar la carpeta\n\n");
         fclose(f);
         return;
     }
 
     if(reminodo2(tempi,tempb,inodoa,f,sb) == 1)
     {
-        printf("Se elimino la carpeta correctamente\n");
+        printf("\nSe elimino la carpeta correctamente\n\n");
         if(sb.s_filesystem_type == 3)
         {
             JOURNAL jou[sb.s_inodes_count];
@@ -7560,7 +7552,6 @@ int reminodo(int ino, FILE* f,SB sb)
     fseek(f,sb.s_inode_start+ino*sb.s_inode_size,SEEK_SET);
     fread(&aux,sizeof(aux),1,f);
     int elim = 0;
-    char el = '*';
 
     char perm[4];
     clean_char(perm,4);
@@ -7768,12 +7759,12 @@ void mover()
 {
     if(path.compare("") == 0)
     {
-        printf("Error ingrese una ruta origen valida\n");
+        printf("\nError ingrese una ruta origen valida\n\n");
         return;
     }
     if(dest.compare("") == 0)
     {
-        printf("Error ingrese una ruta destino valida\n");
+        printf("\nError ingrese una ruta destino valida\n\n");
         return;
     }
 
@@ -7785,7 +7776,7 @@ void mover()
     FILE* f = fopen(part.path.c_str(),"r+b");
     if(f == NULL)
     {
-        printf("Error no se pudo leer el disco\n");
+        printf("\nError no se pudo leer el disco\n\n");
         return;
     }
     SB sb;
@@ -7803,7 +7794,7 @@ void mover()
 
     if(path[0] != '/')
     {
-        printf("Error ruta no valida para la creacion del archivo\n");
+        printf("\nError ruta no valida para la creacion del archivo\n\n");
         fclose(f);
         return;
     }
@@ -7847,7 +7838,7 @@ void mover()
                 punt = 0;
             }else
             {
-                printf("Error, la ruta ingresada no existe\n");
+                printf("\nError, la ruta ingresada no existe\n\n");
                 fclose(f);
                 return;
             }
@@ -7885,7 +7876,7 @@ void mover()
                 punt2 = 0;
             }else
             {
-                printf("Error, la ruta ingresada no existe\n");
+                printf("\nError, la ruta ingresada no existe\n\n");
                 fclose(f);
                 return;
             }
@@ -7935,7 +7926,7 @@ void mover()
 
     if(apuntador == -1)
     {
-        printf("Error el directorio de origen no existe\n");
+        printf("\nError el directorio de origen no existe\n\n");
         fclose(f);
         return;
     }
@@ -8003,13 +7994,213 @@ void mover()
         fecha(jou[posj].j_time);
         fseek(f,isb+sizeof(sb),SEEK_SET);
         fwrite(&jou,sizeof(jou),1,f);
-
     }
 
-    printf("Se movio la carpeta %s con exito\n",te);
+    printf("\nSe movio la carpeta %s con exito\n\n",te);
 
     fclose(f);
 
 
 }
 
+void ren()
+{
+    if(path.compare("") == 0)
+    {
+        printf("\nError, ingrese una path valida\n\n");
+        return;
+    }
+    if(name.compare("") == 0)
+    {
+        printf("\nError, ingrese un nombre valido\n\n");
+        return;
+    }
+
+    PM part = buscarmontada(idactual);
+    if(part.direccion == -2)
+    {
+        return;
+    }
+    FILE* f = fopen(part.path.c_str(),"r+b");
+    if(f == NULL)
+    {
+        printf("\nError no se pudo leer el disco\n\n");
+        return;
+    }
+    SB sb;
+    int isb = -1;
+    if(part.type == 'l')
+    {
+        isb = part.direccion+sizeof(EBR);
+    }else if(part.type == 'p')
+    {
+        isb = part.direccion;
+    }
+
+    fseek(f,isb,SEEK_SET);
+    fread(&sb,sizeof(sb),1,f);
+
+    if(path[0] != '/')
+    {
+        printf("\nError ruta no valida para la creacion del archivo\n\n");
+        fclose(f);
+        return;
+    }
+    char te[13];
+    clean_char(te,13);
+    int inodoa = 0;
+    int inodop = 0;
+    char tempi[sb.s_inodes_count];
+    char tempb[sb.s_blocks_count];
+
+    fseek(f,sb.s_bm_block_start,SEEK_SET);
+    fread(&tempb,sizeof(tempb),1,f);
+
+    fseek(f,sb.s_bm_inode_start,SEEK_SET);
+    fread(&tempi,sizeof(tempi),1,f);
+
+    char permisos[4];
+
+    vector<string> ruta = split(path,'/');
+
+    char te2[13];
+    copiarS(te2, name, 12);
+
+    for(unsigned int i = 1 ; i < ruta.size(); i++)
+    {
+        if(ruta[i].size() > 12)
+        {
+            printf("\nError el nombre de un archivo no puede tener mas de 12 caracteres\n\n");
+            fclose(f);
+            return;
+        }else
+            copiar(te,const_cast<char*>(ruta[i].c_str()), ruta[i].size());
+
+        int ia = -1;
+        clean_char(permisos,4);
+        verificarpermisos(permisos,sb,inodoa,f);
+        if(permisos[0] == '0')
+        {
+            printf("\nError no se tiene acceso de lectura en la carpeta %s\n\n",te);
+            fclose(f);
+            return;
+        }
+
+        if(i == ruta.size()-1)
+        {
+            ia = buscarcarpeta(te2,inodoa,&sb,f);
+            if(ia != -1)
+            {
+                printf("\nError, el nombre ya existe\n\n");
+                return;
+            }
+            ia = buscar_rename(te,inodoa, &sb, f, te2);
+
+            if(sb.s_filesystem_type == 3)
+            {
+                JOURNAL jou[sb.s_inodes_count];
+                fseek(f,isb+sizeof(sb),SEEK_SET);
+                fread(&jou,sizeof(jou),1,f);
+                int posj = buscarvaciojournal(jou,sb.s_inodes_count);
+                jou[posj].type_trans = 8;
+                jou[posj].type = 0;
+                jou[posj].grupo = idgrupoactual;
+                jou[posj].permiso = 0;
+                jou[posj].propietario = idusuarioactual;
+                jou[posj].ipadre = 0;
+                copiar(jou[posj].name, te2,12);
+                clean_char(jou[posj].contenido,100);
+                copiar(jou[posj].contenido, const_cast<char*>(path.c_str()) ,100);
+                fecha(jou[posj].j_time);
+                fseek(f,isb+sizeof(sb),SEEK_SET);
+                fwrite(&jou,sizeof(jou),1,f);
+            }
+            break;
+        }else
+            ia = buscarcarpeta(te,inodoa,&sb,f);
+        if(ia != -1)
+        {
+            inodop = inodoa;
+            inodoa = ia;
+            clean_char(te,13);
+        }else
+        {
+            printf("\nError, la ruta ingresada no existe\n\n");
+            fclose(f);
+            return;
+        }
+    }
+
+
+}
+
+int buscar_rename(char nombre[], int inodoactual,SB* sb, FILE* f, char nombre_new[])
+{
+    INODO iactual;
+    BCARPETA bactual;
+    fseek(f,sb->s_inode_start+inodoactual*sb->s_inode_size,SEEK_SET);
+    fread(&iactual,sizeof(iactual),1,f);
+    for(int i = 0; i<15 ; i++)
+    {
+        if(iactual.i_block[i] != -1)
+        {
+            fseek(f,sb->s_block_start+iactual.i_block[i]*sb->s_block_size,SEEK_SET);
+            fread(&bactual,sizeof(bactual),1,f);
+            for(int j = 0; j<4; j++)
+            {
+                if(strcmp(bactual.b_content[j].b_name,nombre) == 0)
+                {
+                    int inodoa = bactual.b_content[j].b_inode;
+
+                    char permisos[4];
+                    clean_char(permisos,4);
+                    verificarpermisos(permisos,*sb,inodoa,f);
+
+                    if(permisos[1] == '0')
+                    {
+                        printf("\nError el usuario no puede modificar la carpeta\n\n");
+                        fclose(f);
+                        return -1;
+                    }
+
+                    INODO origen;
+                    fseek(f,sb->s_inode_start+inodoa*sb->s_inode_size,SEEK_SET);
+                    fread(&origen,sizeof(origen),1,f);
+
+                    if(origen.i_type == '1' && verificar_carpeta(nombre_new, 12))
+                    {
+                        clean_char(bactual.b_content[j].b_name, 12);
+                        copiar(bactual.b_content[j].b_name, nombre_new, 12);
+                        fseek(f,sb->s_block_start+iactual.i_block[i]*sb->s_block_size,SEEK_SET);
+                        fwrite(&bactual,sizeof(bactual),1,f);
+
+                        fseek(f,sb->s_block_start+iactual.i_block[i]*sb->s_block_size,SEEK_SET);
+                        fread(&bactual,sizeof(bactual),1,f);
+
+                        fecha(origen.i_mtime);
+                        fseek(f,sb->s_inode_start+inodoa*sb->s_inode_size,SEEK_SET);
+                        fwrite(&origen,sizeof(origen),1,f);
+
+                        fseek(f,sb->s_inode_start+inodoa*sb->s_inode_size,SEEK_SET);
+                        fread(&origen,sizeof(origen),1,f);
+                        printf("\nModificacion con exito\n\n");
+                        return 1;
+                    }else
+                        printf("\nNo se puede renombrar un archivo como carpeta o viseversa\n\n");
+
+                }
+            }
+        }
+    }
+    return -1;
+}
+
+bool verificar_carpeta(char name[], int size)
+{
+    for(int i = size-1; i > -1 ; i--)
+    {
+        if(name[i] == '.')
+            return true;
+    }
+    return false;
+}
