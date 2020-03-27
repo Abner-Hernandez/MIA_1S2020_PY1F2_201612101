@@ -2753,7 +2753,6 @@ void ext(int i, int j)
     clean_char(nuevo.s_umtime,16);
     clean_char(nuevo.s_mtime,16);
     EBR auxE;
-    Particion auxP;
     FILE* file = fopen(mounts[i][j].path.c_str(),"r+b");
 
     if(file == NULL)
@@ -2771,7 +2770,6 @@ void ext(int i, int j)
         sizestruct = sizeof(auxE);
     }else if(mounts[i][j].type == 'p')
     {
-        fread(&auxP,sizeof(auxP),1,file);
         sizeparticion = mounts[i][j].part_size;
         sizestruct = 0;
     }
@@ -2788,7 +2786,6 @@ void ext(int i, int j)
     }
 
     JOURNAL jou[inode];
-
 
     nuevo.s_blocks_count = 3*inode;int buscarlibre(char vec[],int tam);
     nuevo.s_block_size = sizeof(BCARPETA);
@@ -2834,7 +2831,6 @@ void ext(int i, int j)
     }
 
 
-
     //-----------SET INODO Y BLOQUE PARA RAIZ
 
     temp_bm_inodos[0] = '1';
@@ -2873,10 +2869,6 @@ void ext(int i, int j)
     tcarpeta.b_content[1].b_inode = 0;
 
     tinodo.i_block[0] = 0;
-
-    //strcat(tcarpeta.b_content[2].b_name,"/");
-    //tcarpeta.b_content[2].b_inode = -1;
-
 
     //-------------SET INODO Y BLOQUE PARA EL ARCHIVO USERS
     temp_bm_inodos[1] = '1';
@@ -5653,8 +5645,13 @@ void loss()
     fseek(f,isb+sizeof(sb),SEEK_SET);
     fread(&jo,sizeof(jo),1,f);
 
+    sb.s_first_blo = 0;
+    sb.s_first_ino = 0;
 
-    for(int i = isb+sizeof(sb)+sizeof(jo)+1; i<(part.part_size+part.direccion)-1; i++)
+    fseek(f,isb,SEEK_SET);
+    fwrite(&sb,sizeof(sb),1,f);
+
+    for(int i = isb+sizeof(sb)+sizeof(jo)+1; i < (isb + part.part_size); i++)
     {
         fseek(f,i,SEEK_SET);
         fwrite("\0",sizeof(char),1,f);
@@ -5696,6 +5693,12 @@ void recovery()
     JOURNAL jo[sb.s_inodes_count];
     fseek(f,isb+sizeof(sb),SEEK_SET);
     fread(&jo,sizeof(jo),1,f);
+
+    for(unsigned int i = isb; i < (isb+sizeof(sb)+sizeof(jo)); i++)
+    {
+        fseek(f,i,SEEK_SET);
+        fwrite("\0",sizeof(char),1,f);
+    }
 
     char ida[12];
     clean_char(ida,12);
