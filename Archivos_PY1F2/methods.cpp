@@ -196,7 +196,7 @@ void init_mounts();
 //Methods Second Fase
 void mkfs();
 void ext(int i, int j);
-void fecha(char* fet);
+void fecha(char fet[]);
 int buscarlibre(char vec[],int tam);
 vector<string> split(string input, char separator);
 int buscarusuario(string fil);
@@ -406,10 +406,14 @@ void mkdisk()   // Crear discos
                 clean_char(att.mbr_particion[i].part_name, 16);
             }
             att.mbr_tam = size*tam;
+
+            /*
             time_t tiempo = time(0);
             struct tm *tiem = localtime(&tiempo);
             strftime(att.mbr_fecha_creacion, 18, "%d/%m/%Y %H:%M", tiem);
+            */
 
+            fecha(att.mbr_fecha_creacion);
             att.mbr_disk_signature = rand();;
             if(fit.compare("") == 0)
                 att.disk_fit = 'f';
@@ -2746,6 +2750,8 @@ void mkfs()
 void ext(int i, int j)
 {
     SB nuevo;
+    clean_char(nuevo.s_umtime,16);
+    clean_char(nuevo.s_mtime,16);
     EBR auxE;
     Particion auxP;
     FILE* file = fopen(mounts[i][j].path.c_str(),"r+b");
@@ -2809,9 +2815,8 @@ void ext(int i, int j)
     nuevo.s_inodes_count = inode;
     nuevo.s_inode_size = sizeof(INODO);
     nuevo.s_magic = 0xEF53;
-    nuevo.s_mnt_count = 1;
+    nuevo.s_mnt_count = 1;    
     fecha(nuevo.s_mtime);
-    clean_char(nuevo.s_umtime,16);
 
     //-----------SET BITMAPS INODO Y BLOQUES
 
@@ -2990,8 +2995,9 @@ vector<string> split(string input, char separator){
     return aux;
 }
 
-void fecha(char* fet)
+void fecha(char fet[])
 {
+    clean_char(fet, 16);
     char fec[18];
     time_t tiempo = time(0);
     struct tm *tiem = localtime(&tiempo);
@@ -3066,15 +3072,12 @@ void login()
 
                 FILE* f = fopen(mounts[i][j].path.c_str(),"r+b");
                 SB sb;
-                int dirsb = -1;
                 if(mounts[i][j].type == 'p')
                 {
                     fseek(f,mounts[i][j].direccion,SEEK_SET);
-                    dirsb = mounts[i][j].direccion;
                 }else
                 {
                     fseek(f,mounts[i][j].direccion + sizeof(EBR),SEEK_SET);
-                    dirsb = mounts[i][j].direccion + sizeof(EBR);
                 }
                 fread(&sb,sizeof(sb),1,f);
                 INODO aux;
@@ -4093,7 +4096,7 @@ int loopruta(vector<string> ruta, int posr, int inodoa,SB& sb,FILE* f, char tipo
 
     if(aux_atribp == 's' && unsigned(posr) != ruta.size()-1){
         //llamar a crear
-        int t = crearAC('c',sb,inodoa,f,ruta[posr]);
+        crearAC('c',sb,inodoa,f,ruta[posr]);
         //llamar recursivo con posr +1
         inodop = inodos;
         inodos = inodoa;
@@ -5447,20 +5450,23 @@ void setINODO(INODO& ino, char tipoi,int perm)
     ino.i_uid = idusuarioactual;
     ino.I_gid = idgrupoactual;
     ino.i_size = 0;
+
+    /*
     char fec[18];
     time_t tiempo = time(0);
     struct tm *tiem = localtime(&tiempo);
     clean_char(fec,18);
     strftime(fec, 18, "%d/%m/%Y %H:%M", tiem);
+    */
 
-    clean_char(ino.i_atime,16);
-    copiar(ino.i_atime,fec,16);
+    fecha(ino.i_atime);
 
     clean_char(ino.i_ctime,16);
-    copiar(ino.i_ctime,fec,16);
+    copiar(ino.i_ctime, ino.i_atime,16);
 
     clean_char(ino.i_mtime,16);
-    copiar(ino.i_mtime,fec,16);
+    copiar(ino.i_mtime, ino.i_atime,16);
+
     for(int i = 0; i<15 ; i++)
     {
         ino.i_block[i] = -1;
@@ -5653,6 +5659,7 @@ void loss()
         fseek(f,i,SEEK_SET);
         fwrite("\0",sizeof(char),1,f);
     }
+    printf("\nSe a perdido la informacion en la particion: %s\n\n", id.c_str());
 }
 
 void recovery()
@@ -5876,15 +5883,12 @@ void syncronice()
 
                 FILE* f = fopen(mounts[i][j].path.c_str(),"r+b");
                 SB sb;
-                int dirsb = -1;
                 if(mounts[i][j].type == 'p')
                 {
                     fseek(f,mounts[i][j].direccion,SEEK_SET);
-                    dirsb = mounts[i][j].direccion;
                 }else
                 {
                     fseek(f,mounts[i][j].direccion + sizeof(EBR),SEEK_SET);
-                    dirsb = mounts[i][j].direccion + sizeof(EBR);
                 }
                 fread(&sb,sizeof(sb),1,f);
                 INODO aux;
@@ -7610,7 +7614,6 @@ int reminodo2(char* ti, char* tb,int ino, FILE* f,SB sb)
     fseek(f,sb.s_inode_start+ino*sb.s_inode_size,SEEK_SET);
     fread(&aux,sizeof(aux),1,f);
     int elim = 0;
-    char el = '*';
     for(int i = 0; i<15 ; i++)
     {
         if(aux.i_block[i] != -1)
@@ -7620,7 +7623,6 @@ int reminodo2(char* ti, char* tb,int ino, FILE* f,SB sb)
                 remblock2(ti,tb,aux.i_block[i],f,sb);
                 if(elim == -1)
                 {
-                    el = 'n';
                 }else
                 {
                     tb[aux.i_block[i]] = '0';
@@ -7646,7 +7648,6 @@ int remblock2(char* ti, char* tb,int blo, FILE* f,SB sb)
     fseek(f,sb.s_block_start+blo*sb.s_block_size,SEEK_SET);
     fread(&aux,sizeof(aux),1,f);
     int elim = 0;
-    char el = '*';
     for(int i = 0; i<4 ; i++)
     {
         if(strcmp(aux.b_content[i].b_name,".") == 0 || strcmp(aux.b_content[i].b_name,"..") == 0)
@@ -7658,7 +7659,6 @@ int remblock2(char* ti, char* tb,int blo, FILE* f,SB sb)
             reminodo2(ti,tb,aux.b_content[i].b_inode,f,sb);
             if(elim == -1)
             {
-                el = 'n';
             }else
             {
                 ti[aux.b_content[i].b_inode] = '0';
@@ -8049,7 +8049,6 @@ void ren()
     char te[13];
     clean_char(te,13);
     int inodoa = 0;
-    int inodop = 0;
     char tempi[sb.s_inodes_count];
     char tempb[sb.s_blocks_count];
 
@@ -8177,6 +8176,7 @@ int buscar_rename(char nombre[], int inodoactual,SB* sb, FILE* f, char nombre_ne
                         fseek(f,sb->s_block_start+iactual.i_block[i]*sb->s_block_size,SEEK_SET);
                         fread(&bactual,sizeof(bactual),1,f);
 
+                        clean_char(origen.i_mtime,16);
                         fecha(origen.i_mtime);
                         fseek(f,sb->s_inode_start+inodoa*sb->s_inode_size,SEEK_SET);
                         fwrite(&origen,sizeof(origen),1,f);

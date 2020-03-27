@@ -138,7 +138,7 @@ ADMINIST :  mkdisk MKPARM MKPARM MKPARM MKPARM                          { mkdisk
             |pause                                                      { pause();}
             |rem path assign pather                                     { path = $4; verificar_comillas(path); remover();}
             |mv MV MV                                                   { mover();}
-            |recovery assign idvda                                      { id = $3;}
+            |recovery id assign idvda                                   { id = $4; recovery();}
             |ren REN REN                                                { ren(); }
             |edit EDIT EDIT                                             { printf("\nNo hay metodo definido\n\n"); }
             |cp MV MV                                                   { printf("\nNo hay metodo definido\n\n"); }
@@ -186,8 +186,8 @@ MKUSR :     usr assign npart                                            { usr = 
             |grp assign npart                                           { grp = $3; verificar_comillas(grp);};
 
 CHMOD :     path assign pather                                          { path = $3; verificar_comillas(path);}
-            |ugo assign npart                                           { /*size = verificate_string($3); /* size = $3; */ }
-            |recursive
+            |ugo assign npart                                           {}
+            |recursive                                                  {}
             |%empty                                                     { $$ = "empty";};
 
 MKFILE :    size assign npart                                           { size = verificate_string($3); /* size = $3; */ }
