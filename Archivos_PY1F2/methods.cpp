@@ -67,6 +67,7 @@ int add = 0;
 int size = 0;
 int number = 0;
 bool exec;
+bool recovery_state;
 
 // define vars second fase
 int idusuarioactual = -1;
@@ -310,6 +311,7 @@ void default_vars()
     aux_atribp = '*';
     aux_cont = "";
     aux_size = 0;
+    bool recovery_state = false;
 
 }
 
@@ -574,6 +576,7 @@ void fdisk()
                 }
             }
         }
+        fclose(f);
     }else
     {
         cout << "\nHace falta un parametro obligatorio para poder usar la funcion fdisk\n\n";
@@ -759,7 +762,6 @@ void agregarAparticion(string path)
                         }
                     }
                 }
-
             }
         }
 
@@ -2752,6 +2754,8 @@ void ext(int i, int j)
     SB nuevo;
     clean_char(nuevo.s_umtime,16);
     clean_char(nuevo.s_mtime,16);
+    fecha(nuevo.s_mtime);
+
     EBR auxE;
     FILE* file = fopen(mounts[i][j].path.c_str(),"r+b");
 
@@ -2785,7 +2789,7 @@ void ext(int i, int j)
         inode = floor(((sizeparticion-sizestruct)-sizeof(SB))/(sizeof(JOURNAL)+4+sizeof(INODO)+3*sizeof(BCARPETA)));
     }
 
-    JOURNAL jou[inode];
+    int size_jou = sizeof(JOURNAL[inode]);
 
     nuevo.s_blocks_count = 3*inode;int buscarlibre(char vec[],int tam);
     nuevo.s_block_size = sizeof(BCARPETA);
@@ -2798,10 +2802,10 @@ void ext(int i, int j)
         nuevo.s_bm_inode_start = mounts[i][j].direccion + sizestruct + sizeof(SB);
     }else
     {
-        nuevo.s_block_start = mounts[i][j].direccion + sizestruct + sizeof(SB)+sizeof(jou)+sizeof(char[inode])+sizeof(char[3*inode])+inode*sizeof(INODO);
-        nuevo.s_bm_block_start = mounts[i][j].direccion + sizestruct + sizeof(SB)+sizeof(jou)+sizeof(char[inode]);
-        nuevo.s_inode_start = mounts[i][j].direccion + sizestruct + sizeof(SB)+sizeof(jou)+sizeof(char[inode])+sizeof(char[3*inode]);
-        nuevo.s_bm_inode_start = mounts[i][j].direccion + sizestruct + sizeof(SB)+sizeof(jou);
+        nuevo.s_block_start = mounts[i][j].direccion + sizestruct + sizeof(SB)+size_jou+sizeof(char[inode])+sizeof(char[3*inode])+inode*sizeof(INODO);
+        nuevo.s_bm_block_start = mounts[i][j].direccion + sizestruct + sizeof(SB)+size_jou+sizeof(char[inode]);
+        nuevo.s_inode_start = mounts[i][j].direccion + sizestruct + sizeof(SB)+size_jou+sizeof(char[inode])+sizeof(char[3*inode]);
+        nuevo.s_bm_inode_start = mounts[i][j].direccion + sizestruct + sizeof(SB)+size_jou;
     }
 
     nuevo.s_filesystem_type = fs -48;
@@ -2813,23 +2817,22 @@ void ext(int i, int j)
     nuevo.s_inode_size = sizeof(INODO);
     nuevo.s_magic = 0xEF53;
     nuevo.s_mnt_count = 1;    
-    fecha(nuevo.s_mtime);
 
     //-----------SET BITMAPS INODO Y BLOQUES
 
     char temp_bm_inodos[inode];
-    char temp_bm_blocks[3*inode];
 
     for(int to = 0; to < inode ; to++)
     {
         temp_bm_inodos[to] = '0';
     }
 
+    char temp_bm_blocks[3*inode];
+
     for(int to = 0; to < 3*inode ; to++)
     {
         temp_bm_blocks[to] = '0';
     }
-
 
     //-----------SET INODO Y BLOQUE PARA RAIZ
 
@@ -2908,21 +2911,20 @@ void ext(int i, int j)
 
 
 
-    if(fs == '3')
+    if(fs == '3' && recovery_state == false)
     {
+        JOURNAL jou[inode];
+
         for(int y = 0; y<inode; y++)
         {
             jou[y].permiso = -1;
             jou[y].type = -1;
             jou[y].type_trans = -1;
-            for(int g =0; g<10; g++)
-            {
-                jou[y].j_time[g] = '\0';
-                jou[y].name[g] = '\0';
-            }
             jou[y].propietario = -1;
             jou[y].grupo = -1;
-            clean_char(jou[y].contenido,64);
+            clean_char(jou[y].contenido,100);
+            clean_char(jou[y].name,12);
+            clean_char(jou[y].j_time,16);
         }
 
         jou[0].permiso = 664;
@@ -5651,7 +5653,7 @@ void loss()
     fseek(f,isb,SEEK_SET);
     fwrite(&sb,sizeof(sb),1,f);
 
-    for(int i = isb+sizeof(sb)+sizeof(jo)+1; i < (isb + part.part_size); i++)
+    for(int i = isb+sizeof(sb)+sizeof(jo)+1; i<(part.part_size+part.direccion)-1; i++)
     {
         fseek(f,i,SEEK_SET);
         fwrite("\0",sizeof(char),1,f);
@@ -5661,6 +5663,7 @@ void loss()
 
 void recovery()
 {
+    recovery_state = true;
     if(id == "")
     {
         printf("\nError ingrese un id valido\n\n");
@@ -5690,15 +5693,7 @@ void recovery()
     fseek(f,isb,SEEK_SET);
     fread(&sb,sizeof(sb),1,f);
 
-    JOURNAL jo[sb.s_inodes_count];
-    fseek(f,isb+sizeof(sb),SEEK_SET);
-    fread(&jo,sizeof(jo),1,f);
 
-    for(unsigned int i = isb; i < (isb+sizeof(sb)+sizeof(jo)); i++)
-    {
-        fseek(f,i,SEEK_SET);
-        fwrite("\0",sizeof(char),1,f);
-    }
 
     char ida[12];
     clean_char(ida,12);
@@ -5709,14 +5704,29 @@ void recovery()
     int ide = idusuarioactual;
     int gre = idgrupoactual;
 
-    for(int i = 0; i<sb.s_inodes_count; i++)
+    int start = isb+sizeof(sb);
+
+    JOURNAL jo;
+    int max_jou = 0;
+    for(; max_jou<sb.s_inodes_count; max_jou++)
     {
-        if(jo[i].type_trans == -1)
+        fseek(f,start+max_jou*sizeof(JOURNAL),SEEK_SET);
+        fread(&jo,sizeof(jo),1,f);
+        if(jo.type_trans == -1)
+            break;
+    }
+
+    for(int i = 0; i < max_jou; i++)
+    {
+        fseek(f,start+i*sizeof(JOURNAL),SEEK_SET);
+        fread(&jo,sizeof(jo),1,f);
+
+        if(jo.type_trans == -1)
         {
             break;
-        }else if(jo[i].type_trans == 1)
-        {
-            type = '*';
+        }else if(jo.type_trans == 1)
+        {            
+            tdelete = "full";
             fs = '3';
 
             idgrupoactual = 1;
@@ -5724,10 +5734,10 @@ void recovery()
             mkfs();
 
             fs = '*';
-        }else if(jo[i].type_trans == 2)
+        }else if(jo.type_trans == 2)
         {
             name = "";
-            name = string(jo[i].name);
+            name = string(jo.name);
 
             for(int yu = 0; yu<10; yu++)
             {
@@ -5745,34 +5755,34 @@ void recovery()
             name = "";
 
 
-        }else if(jo[i].type_trans == 3)
+        }else if(jo.type_trans == 3)
         {
             usr = "";
             pwd = "";
             grp = "";
 
-            usr = string(jo[i].name);
+            usr = string(jo.name);
             int yu = 0;
             for( ; yu<100; yu++)
             {
-                if(jo[i].contenido[yu] == ',')
+                if(jo.contenido[yu] == ',')
                 {
                     break;
                 }
-                pwd += jo[i].contenido[yu];
+                pwd += jo.contenido[yu];
             }
             int iuo = 0;
             for( ; yu<100; yu++)
             {
-                if(jo[i].contenido[yu] == ',')
+                if(jo.contenido[yu] == ',')
                 {
                     continue;
                 }
-                if(jo[i].contenido[yu] == '\0')
+                if(jo.contenido[yu] == '\0')
                 {
                     break;
                 }
-                grp += jo[i].contenido[yu];
+                grp += jo.contenido[yu];
                 iuo++;
             }
             idusuarioactual = 1;
@@ -5783,28 +5793,28 @@ void recovery()
             usr = "";
             pwd = "";
             grp = "";
-        }else if(jo[i].type_trans == 4)
+        }else if(jo.type_trans == 4)
         {
             name = "";
-            name = string(jo[i].name);
+            name = string(jo.name);
             rmgrp();
             name = "";
-        }else if(jo[i].type_trans == 5)
+        }else if(jo.type_trans == 5)
         {
             usr = "";
-            usr = string(jo[i].name);
+            usr = string(jo.name);
             rmusr();
             usr = "";
-        }else if(jo[i].type_trans == 6)
+        }else if(jo.type_trans == 6)
         {
             path = "";
-            path = string(jo[i].contenido);
+            path = string(jo.contenido);
 
             atribp = 's';
 
 
-            idgrupoactual = jo[i].grupo;
-            idusuarioactual = jo[i].propietario;
+            idgrupoactual = jo.grupo;
+            idusuarioactual = jo.propietario;
 
             mkdir();
 
@@ -5812,9 +5822,9 @@ void recovery()
 
             path = "";
             atribp = '*';
-        }else if(jo[i].type_trans == 7)
+        }else if(jo.type_trans == 7)
         {
-            vector<string> rt = split(string(jo[i].contenido),',');
+            vector<string> rt = split(string(jo.contenido),',');
             path = "";
             if(rt[0][0] == '/')
             {
@@ -5829,8 +5839,8 @@ void recovery()
                 path = rt[1];
             }
             inodomkfj = -1;
-            idusuarioactual = jo[i].propietario;
-            idgrupoactual = jo[i].grupo;
+            idusuarioactual = jo.propietario;
+            idgrupoactual = jo.grupo;
 
             atribp = 's';
 
@@ -5842,16 +5852,28 @@ void recovery()
             path = "";
             atribp = '*';
             inodomkfj = -1;
-        }else if(jo[i].type_trans == 8)
+        }else if(jo.type_trans == 8)
         {
-            path = string(jo[i].contenido);
-            name = path.substr(0, i) + string(jo[i].name);
-            idusuarioactual = jo[i].propietario;
-            idgrupoactual = jo[i].grupo;
+            path = string(jo.contenido);
+            name = path.substr(0, i) + string(jo.name);
+            idusuarioactual = jo.propietario;
+            idgrupoactual = jo.grupo;
             ren();
 
-
         }
+    }
+
+    //Reescribir journal
+    for(int i = max_jou ; i< max_jou*2; i++)
+    {
+        fseek(f,start+i*sizeof(JOURNAL),SEEK_SET);
+        fread(&jo,sizeof(jo),1,f);
+        if(jo.type_trans == -1)
+            break;
+        jo.type_trans = -1;
+        fseek(f,start+i*sizeof(JOURNAL),SEEK_SET);
+        fwrite(&jo,sizeof(jo),1,f);
+
     }
 
     idactual = "";
@@ -5859,9 +5881,7 @@ void recovery()
 
     idusuarioactual = ide;
     idgrupoactual = gre;
-
-    //fseek(f,isb+sizeof(sb),SEEK_SET);
-    //write(&jo,sizeof(jo),1,f);
+    recovery_state = false;
 }
 
 void syncronice()
@@ -8117,6 +8137,7 @@ void ren()
                 fseek(f,isb+sizeof(sb),SEEK_SET);
                 fwrite(&jou,sizeof(jou),1,f);
             }
+            fclose(f);
             break;
         }else
             ia = buscarcarpeta(te,inodoa,&sb,f);

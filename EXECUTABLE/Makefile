@@ -251,7 +251,6 @@ DIST          = ../Archivos_PY1F2/entrada.txt \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/features/spec_post.prf \
-		../Archivos_PY1F2/.qmake.stash \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -476,7 +475,6 @@ Makefile: ../Archivos_PY1F2/Archivos_PY1F2.pro /opt/Qt/5.14.1/gcc_64/mkspecs/lin
 		/opt/Qt/5.14.1/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt/5.14.1/gcc_64/mkspecs/features/default_pre.prf \
@@ -682,7 +680,6 @@ Makefile: ../Archivos_PY1F2/Archivos_PY1F2.pro /opt/Qt/5.14.1/gcc_64/mkspecs/lin
 /opt/Qt/5.14.1/gcc_64/mkspecs/features/qt_config.prf:
 /opt/Qt/5.14.1/gcc_64/mkspecs/linux-g++/qmake.conf:
 /opt/Qt/5.14.1/gcc_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /opt/Qt/5.14.1/gcc_64/mkspecs/features/exclusive_builds.prf:
 /opt/Qt/5.14.1/gcc_64/mkspecs/features/toolchain.prf:
 /opt/Qt/5.14.1/gcc_64/mkspecs/features/default_pre.prf:
