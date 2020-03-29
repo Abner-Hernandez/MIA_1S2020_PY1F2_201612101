@@ -140,7 +140,7 @@ ADMINIST :  mkdisk MKPARM MKPARM MKPARM MKPARM                          { mkdisk
             |mv MV MV                                                   { mover();}
             |recovery id assign idvda                                   { id = $4; recovery();}
             |ren REN REN                                                { ren(); }
-            |find REN REN                                               { printf("\nNo hay metodo definido\n\n"); }
+            |find REN REN                                               { find(); }
             |edit EDIT EDIT                                             { printf("\nNo hay metodo definido\n\n"); }
             |cp MV MV                                                   { printf("\nNo hay metodo definido\n\n"); }
             |chmod CHMOD CHMOD CHMOD                                    { printf("\nNo hay metodo definido\n\n"); }

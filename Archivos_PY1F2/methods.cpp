@@ -262,7 +262,10 @@ int remblock3(char* ti, char* tb,int blo, FILE* f,SB sb);
 int buscar_rename(char nombre[], int inodoactual,SB* sb, FILE* f, char nombre_new[]);
 bool verificar_carpeta(char name[], int size);
 void ren();
-
+void buscar_carpeta_recursive(char nombre[], int inodoactual,SB* sb, FILE* f);
+void find();
+void remover();
+void mover();
 
 void verificar_comillas(string &cadena)
 {
@@ -311,8 +314,7 @@ void default_vars()
     aux_atribp = '*';
     aux_cont = "";
     aux_size = 0;
-    bool recovery_state = false;
-
+    recovery_state = false;
 }
 
 void init_mounts(){
@@ -408,12 +410,6 @@ void mkdisk()   // Crear discos
                 clean_char(att.mbr_particion[i].part_name, 16);
             }
             att.mbr_tam = size*tam;
-
-            /*
-            time_t tiempo = time(0);
-            struct tm *tiem = localtime(&tiempo);
-            strftime(att.mbr_fecha_creacion, 18, "%d/%m/%Y %H:%M", tiem);
-            */
 
             fecha(att.mbr_fecha_creacion);
             att.mbr_disk_signature = rand();;
@@ -2924,7 +2920,6 @@ void ext(int i, int j)
             jou[y].grupo = -1;
             clean_char(jou[y].contenido,100);
             clean_char(jou[y].name,12);
-            clean_char(jou[y].j_time,16);
         }
 
         jou[0].permiso = 664;
@@ -3340,7 +3335,7 @@ void mkgrp()
                         jou[posj].permiso = 0;
                         jou[posj].propietario = 0;
                         jou[posj].ipadre = 0;
-                        copiarS(jou[posj].name,name,name.length());
+                        copiarS(jou[posj].name,name, name.length());
 
                         fecha(jou[posj].j_time);
                         fseek(f,dirsb+sizeof(sb),SEEK_SET);
@@ -3528,7 +3523,7 @@ void rmgrp()
                         jou[posj].permiso = 0;
                         jou[posj].propietario = 0;
                         jou[posj].ipadre = 0;
-                        copiarS(jou[posj].name,name,name.length());
+                        copiarS(jou[posj].name,name, name.length());
 
                         fecha(jou[posj].j_time);
                         fseek(f,dirsb+sizeof(sb),SEEK_SET);
@@ -3768,7 +3763,7 @@ void mkusr()
                         jou[posj].permiso = 0;
                         jou[posj].propietario = 0;
                         jou[posj].ipadre = 0;
-                        copiarS(jou[posj].name,usr,usr.length());
+                        copiarS(jou[posj].name,usr, usr.length());
                         strcat(jou[posj].contenido,pwd.c_str());
                         strcat(jou[posj].contenido,",");
                         strcat(jou[posj].contenido,grp.c_str());
@@ -3879,7 +3874,7 @@ void rmusr()
                         jou[posj].permiso = 0;
                         jou[posj].propietario = 0;
                         jou[posj].ipadre = 0;
-                        copiarS(jou[posj].name,usr,usr.length());
+                        copiarS(jou[posj].name,usr, usr.length());
 
 
                         fecha(jou[posj].j_time);
@@ -3961,7 +3956,7 @@ void mkfile()
             jou[posj].permiso = 664;
             jou[posj].propietario = idusuarioactual;
             jou[posj].ipadre = inodop;
-            copiarS(jou[posj].name,ruta[ruta.size()-1],12);
+            copiarS(jou[posj].name, ruta[ruta.size()-1], ruta[ruta.size()-1].size());
             char tipp ='*';
             if(cont == "")
             {
@@ -5445,14 +5440,6 @@ void setINODO(INODO& ino, char tipoi,int perm)
     ino.I_gid = idgrupoactual;
     ino.i_size = 0;
 
-    /*
-    char fec[18];
-    time_t tiempo = time(0);
-    struct tm *tiem = localtime(&tiempo);
-    clean_char(fec,18);
-    strftime(fec, 18, "%d/%m/%Y %H:%M", tiem);
-    */
-
     fecha(ino.i_atime);
 
     clean_char(ino.i_ctime,16);
@@ -5697,7 +5684,7 @@ void recovery()
 
     char ida[12];
     clean_char(ida,12);
-    copiarS(ida,idactual,11);
+    copiarS(ida,idactual, idactual.length());
     idactual = "";
     idactual = id;
 
@@ -5855,25 +5842,60 @@ void recovery()
         }else if(jo.type_trans == 8)
         {
             path = string(jo.contenido);
-            name = path.substr(0, i) + string(jo.name);
+            name = string(jo.name);
+            idgrupoactual = 1;
+            idusuarioactual = 1;
+            ren();
+            path = "";
+            name = "";
+        }else if(jo.type_trans == 9)
+        {
+            path = string(jo.contenido);
+            idgrupoactual = 1;
+            idusuarioactual = 1;
+            remover();
+        }else if(jo.type_trans == 10)
+        {
+            vector<string> rt = split(string(jo.contenido),',');
+            path = "";
+            if(rt[0][0] == '/')
+            {
+                dest = "";
+                dest = rt[0];
+                path = rt[1];
+                size = 0;
+            }
+
+            inodomkfj = -1;
             idusuarioactual = jo.propietario;
             idgrupoactual = jo.grupo;
-            ren();
 
+            mover();
+
+
+            cont = "";
+            size = 0;
+            path = "";
+            atribp = '*';
+            inodomkfj = -1;
         }
     }
 
     //Reescribir journal
+    jo.permiso = -1;
+    jo.type = -1;
+    jo.type_trans = -1;
+    jo.propietario = -1;
+    jo.grupo = -1;
+    jo.ipadre = -1;
+    clean_char(jo.contenido,100);
+    clean_char(jo.name,12);
+    clean_char(jo.j_time,16);
+
     for(int i = max_jou ; i< max_jou*2; i++)
     {
         fseek(f,start+i*sizeof(JOURNAL),SEEK_SET);
-        fread(&jo,sizeof(jo),1,f);
-        if(jo.type_trans == -1)
-            break;
-        jo.type_trans = -1;
-        fseek(f,start+i*sizeof(JOURNAL),SEEK_SET);
         fwrite(&jo,sizeof(jo),1,f);
-
     }
 
     idactual = "";
@@ -6026,8 +6048,8 @@ void mkdir()
             jou[posj].grupo = idgrupoactual;
             jou[posj].permiso = 664;
             jou[posj].propietario = idusuarioactual;
-            copiarS(jou[posj].name,ruta[ruta.size()-1],12);
-            copiarS(jou[posj].contenido,path,100);
+            copiarS(jou[posj].name,ruta[ruta.size()-1], ruta[ruta.size()-1].size());
+            copiarS(jou[posj].contenido,path, path.size());
             fecha(jou[posj].j_time);
             fseek(f,isb+sizeof(sb),SEEK_SET);
             fwrite(&jou,sizeof(jou),1,f);
@@ -7488,7 +7510,7 @@ void remover()
             fseek(f,isb+sizeof(sb),SEEK_SET);
             fread(&jou,sizeof(jou),1,f);
             int posj = buscarvaciojournal(jou,sb.s_inodes_count);
-            jou[posj].type_trans = 6;
+            jou[posj].type_trans = 9;
             jou[posj].type = 0;
             jou[posj].grupo = idgrupoactual;
             jou[posj].permiso = 0;
@@ -7496,7 +7518,7 @@ void remover()
             jou[posj].ipadre = 0;
             copiar(jou[posj].name, te,12);
             clean_char(jou[posj].contenido,100);
-            copiar(jou[posj].contenido, const_cast<char*>(path.c_str()) ,100);
+            copiarS(jou[posj].contenido, path, path.size());
             fecha(jou[posj].j_time);
             fseek(f,isb+sizeof(sb),SEEK_SET);
             fwrite(&jou,sizeof(jou),1,f);
@@ -8005,7 +8027,7 @@ void mover()
         fseek(f,isb+sizeof(sb),SEEK_SET);
         fread(&jou,sizeof(jou),1,f);
         int posj = buscarvaciojournal(jou,sb.s_inodes_count);
-        jou[posj].type_trans = 7;
+        jou[posj].type_trans = 10;
         jou[posj].type = 0;
         jou[posj].grupo = idgrupoactual;
         jou[posj].permiso = 0;
@@ -8013,7 +8035,7 @@ void mover()
         jou[posj].ipadre = inodoa2;
         copiar(jou[posj].name,te2,12);
         clean_char(jou[posj].contenido,100);
-        copiar(jou[posj].contenido, const_cast<char*>(path.c_str()),100);
+        sprintf(jou[posj].contenido,"%s,%s",dest.c_str(),path.c_str());
         fecha(jou[posj].j_time);
         fseek(f,isb+sizeof(sb),SEEK_SET);
         fwrite(&jou,sizeof(jou),1,f);
@@ -8063,12 +8085,6 @@ void ren()
     fseek(f,isb,SEEK_SET);
     fread(&sb,sizeof(sb),1,f);
 
-    if(path[0] != '/')
-    {
-        printf("\nError ruta no valida para la creacion del archivo\n\n");
-        fclose(f);
-        return;
-    }
     char te[13];
     clean_char(te,13);
     int inodoa = 0;
@@ -8086,7 +8102,8 @@ void ren()
     vector<string> ruta = split(path,'/');
 
     char te2[13];
-    copiarS(te2, name, 12);
+    clean_char(te2,13);
+    copiarS(te2, name, name.length());
 
     for(unsigned int i = 1 ; i < ruta.size(); i++)
     {
@@ -8132,7 +8149,7 @@ void ren()
                 jou[posj].ipadre = 0;
                 copiar(jou[posj].name, te2,12);
                 clean_char(jou[posj].contenido,100);
-                copiar(jou[posj].contenido, const_cast<char*>(path.c_str()) ,100);
+                copiarS(jou[posj].contenido, path, path.size());
                 fecha(jou[posj].j_time);
                 fseek(f,isb+sizeof(sb),SEEK_SET);
                 fwrite(&jou,sizeof(jou),1,f);
@@ -8153,8 +8170,6 @@ void ren()
             return;
         }
     }
-
-
 }
 
 int buscar_rename(char nombre[], int inodoactual,SB* sb, FILE* f, char nombre_new[])
@@ -8227,4 +8242,164 @@ bool verificar_carpeta(char name[], int size)
             return true;
     }
     return false;
+}
+
+void find()
+{
+    if(path.compare("") == 0)
+    {
+        printf("\nError, ingrese una path valida\n\n");
+        return;
+    }
+    if(name.compare("") == 0)
+    {
+        printf("\nError, ingrese un nombre valido\n\n");
+        return;
+    }
+
+    PM part = buscarmontada(idactual);
+    if(part.direccion == -2)
+    {
+        return;
+    }
+    FILE* f = fopen(part.path.c_str(),"r+b");
+    if(f == NULL)
+    {
+        printf("\nError no se pudo leer el disco\n\n");
+        return;
+    }
+    SB sb;
+    int isb = -1;
+    if(part.type == 'l')
+    {
+        isb = part.direccion+sizeof(EBR);
+    }else if(part.type == 'p')
+    {
+        isb = part.direccion;
+    }
+
+    fseek(f,isb,SEEK_SET);
+    fread(&sb,sizeof(sb),1,f);
+
+    char te[13];
+    clean_char(te,13);
+    int inodoa = 0;
+    char tempi[sb.s_inodes_count];
+    char tempb[sb.s_blocks_count];
+
+    fseek(f,sb.s_bm_block_start,SEEK_SET);
+    fread(&tempb,sizeof(tempb),1,f);
+
+    fseek(f,sb.s_bm_inode_start,SEEK_SET);
+    fread(&tempi,sizeof(tempi),1,f);
+
+    char permisos[4];
+
+    vector<string> ruta = split(path,'/');
+
+    char te2[13];
+    copiarS(te2, name, name.size());
+
+    for(unsigned int i = 1 ; i < ruta.size(); i++)
+    {
+        if(ruta[i].size() > 12)
+        {
+            printf("\nError el nombre de un archivo no puede tener mas de 12 caracteres\n\n");
+            fclose(f);
+            return;
+        }else
+            copiar(te,const_cast<char*>(ruta[i].c_str()), ruta[i].size());
+
+        int ia = -1;
+        clean_char(permisos,4);
+        verificarpermisos(permisos,sb,inodoa,f);
+        if(permisos[0] == '0')
+        {
+            printf("\nError no se tiene acceso de lectura en la carpeta %s\n\n",te);
+            fclose(f);
+            return;
+        }
+
+        ia = buscarcarpeta(te,inodoa,&sb,f);
+        if(ia != -1)
+        {
+            printf("\n/%s", te);
+            inodop = inodoa;
+            inodoa = ia;
+            clean_char(te,13);
+        }else
+        {
+            printf("\nError, la ruta ingresada no existe\n\n");
+            fclose(f);
+            return;
+        }
+    }
+
+    //Buscar metodo
+    buscar_carpeta_recursive(te2, inodoa, &sb, f);
+    if(file.compare("") != 0)
+        cout << file;
+
+    if(path_copy.compare("") == 0)
+        printf("\nNo se encontro el archivo o carpeta: %s", te2);
+    else
+        cout << path_copy << te2 << "\n\n";
+
+    file = "";
+    path_copy = "";
+}
+
+void buscar_carpeta_recursive(char nombre[], int inodoactual,SB* sb, FILE* f)
+{
+    INODO iactual;
+    BCARPETA bactual;
+    fseek(f,sb->s_inode_start+inodoactual*sb->s_inode_size,SEEK_SET);
+    fread(&iactual,sizeof(iactual),1,f);
+    for(int i = 0; i<15 ; i++)
+    {
+        if(iactual.i_block[i] != -1)
+        {
+            fseek(f,sb->s_block_start+iactual.i_block[i]*sb->s_block_size,SEEK_SET);
+            fread(&bactual,sizeof(bactual),1,f);
+            for(int j = 0; j<4; j++)
+            {
+                if(bactual.b_content[j].b_inode == -1 || strcmp(bactual.b_content[j].b_name,".") == 0 || strcmp(bactual.b_content[j].b_name,"..") == 0)
+                    continue;
+
+                int inodoa = bactual.b_content[j].b_inode;
+
+                char permisos[4];
+                clean_char(permisos,4);
+                verificarpermisos(permisos,*sb,inodoa,f);
+
+                if(permisos[0] == '0')
+                {
+                    printf("\nError el usuario no tiene permisos de lectura para el archivo o carpeta\n\n");
+                    fclose(f);
+                    continue;
+                }
+
+                if(strcmp(bactual.b_content[j].b_name,nombre) == 0)
+                {
+                    path_copy = "\nSe encontro el archivo: ";
+                    return;
+                }else
+                {
+                    INODO origen;
+                    fseek(f,sb->s_inode_start+inodoa*sb->s_inode_size,SEEK_SET);
+                    fread(&origen,sizeof(origen),1,f);
+                    if(origen.i_type == '0')
+                    {
+                        buscar_carpeta_recursive(nombre, inodoa, sb, f);
+                        if (path_copy.compare("") != 0)
+                        {
+                            string aux = bactual.b_content[j].b_name;
+                            file = "\n/" + aux + file;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
